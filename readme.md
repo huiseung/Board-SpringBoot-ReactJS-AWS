@@ -1,6 +1,6 @@
 # Board project 기록
 - 이번 프로젝트에서 익히고 싶은 것들
-  - spring boot를 활용한 api backend 개발
+  - spring boot를 활용한 api backend 개발, 테스트 코드 작성
   - reactJS를 활용한 Web frontend 개발
   - AWS를 활용한 server 구축
   - Docker를 활용한 배포
