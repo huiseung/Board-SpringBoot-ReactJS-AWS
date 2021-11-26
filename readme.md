@@ -32,7 +32,7 @@
   - 배포후 긴급 점검 branch
   - develop에 merge시킨 후 제거
 - test
-  - feature에서 작성한 기능에 대한 테스트 코드 작성 branch
+  - feature에서 작성한 기능과 hotfix에서 수정한 기능에 대한 테스트 코드 작성 branch
   - develop에 merge시킨 후 제거
 - develop
   - 현재 개발 상황을 저장 중인 branch
