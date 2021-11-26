@@ -26,7 +26,7 @@ public class PostService {
     private final UserRepository userRepository;
     private final PostRepository postRepository;
     private final ImageService imageService;
-    private final Logger log = LoggerFactory.getLogger(PostService.class);
+    private static final Logger log = LoggerFactory.getLogger(PostService.class);
 
     @Transactional
     public PostDto create(PostCreateRequestDto requestDto, List<MultipartFile> files){

@@ -6,7 +6,6 @@ import com.example.back.auth.responseDto.LoginResponseDto;
 import com.example.back.config.ConfigUtils;
 import com.example.back.user.User;
 import com.example.back.user.UserRepository;
-import com.example.back.utils.errors.NotFoundException;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -40,6 +39,7 @@ public class TokenService {
     @PostConstruct
     protected void init(){
         secretKey = configUtils.getProperty("token.secretKey");
+        System.out.println("secretKey: "+secretKey);
         secretKey = Base64.encodeBase64String(secretKey.getBytes(StandardCharsets.UTF_8));
         accessTokenExpirationTimeMs = Long.parseLong(configUtils.getProperty("token.accessToken.expirationTimeSec"))*1000;
     }
