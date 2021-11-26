@@ -1,5 +1,6 @@
 package com.example.back.user;
 
+import com.example.back.baseTime.BaseTimeEntity;
 import com.example.back.post.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class User {
+public class User extends BaseTimeEntity {
     @Column(name="user_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
