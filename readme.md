@@ -15,7 +15,7 @@
 # 목차
 [버전 관리](#version-control)
 
-[테이블 설계](#er-diagram)
+[테이블 설계](#table-diagram)
 
 [기술 스택](#skills)
 
@@ -42,8 +42,8 @@
   - 기능 개발중인 branch
   - 완성후 develop에 merge시키고 제거
 
-# ER Diagram
-![ER diagram](./devlog/images/ERdiagram.PNG)
+# Table Diagram
+![table diagram](./devlog/images/ERdiagram.PNG)
 
 
 # Skills
@@ -62,7 +62,7 @@
   - Docker
 - AWS
   - EC2
-  - RDS
+  - RDS, MySQL
   - S3
 
 # devlog
