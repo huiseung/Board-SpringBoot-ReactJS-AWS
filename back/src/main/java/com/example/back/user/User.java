@@ -1,6 +1,7 @@
 package com.example.back.user;
 
 import com.example.back.baseTime.BaseTimeEntity;
+import com.example.back.comment.Comment;
 import com.example.back.post.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 @Table(name="users")
 @Getter
@@ -26,6 +28,10 @@ public class User extends BaseTimeEntity {
     @Builder.Default
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments = new ArrayList<>();
     //
     @Enumerated(EnumType.STRING)
     @Column

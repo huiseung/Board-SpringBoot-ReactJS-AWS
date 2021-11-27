@@ -20,6 +20,7 @@ const StyledHr = styled.hr`
 
 function PostDetailQuill(props){
     const nickName =  localStorage.getItem("nickName")
+    const {loading: loginLoading, data: loginData, error: loginError} = useSelector(state=>state.loginReducer)
     const {loading: postGetLoading, data: postGetData, error: postGetError} = useSelector(state=>state.postGetReducer) 
 
     const dispatch = useDispatch()
@@ -39,6 +40,15 @@ function PostDetailQuill(props){
                 <StyledHr/>
             </div>
             <div dangerouslySetInnerHTML={{__html: postGetData?.content}}></div>
+            <ul>
+                {postGetData?.comments?.map((comment)=>{
+                    return(
+                        <li key={comment.id}>
+                            <div>{comment.content}</div>
+                        </li>
+                    )
+                })}
+            </ul>
         </StyledContainer>
     )
 }

@@ -7,7 +7,6 @@ import SignUpPage from './pages/SignUpPage';
 import PostPage from './pages/PostPage'
 import PostListPage from './pages/PostListPage';
 import Palette from './utils/styles/palette';
-import PostWriteForm from './components/post/PostWriteForm';
 import PostWriteQuill from './components/post/PostWriteQuill';
 
 function App() {

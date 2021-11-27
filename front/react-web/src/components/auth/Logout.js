@@ -10,6 +10,8 @@ const StyledButton = styled.button`
     background-color: white;
     color: black;
     border-radius: 20px;
+    margin-left: 1rem;
+
 `
 
 function Logout({history}){    

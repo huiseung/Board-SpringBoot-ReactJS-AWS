@@ -2,6 +2,7 @@ package com.example.back.comment;
 
 import com.example.back.baseTime.BaseTimeEntity;
 import com.example.back.post.Post;
+import com.example.back.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,14 +27,17 @@ public class Comment extends BaseTimeEntity {
     @JoinColumn(name="post_id")
     @ManyToOne
     private Post post;
-
-    @JoinColumn(name="parent_comment_id")
+    @JoinColumn(name="user_id")
     @ManyToOne
-    private Comment parentComment;
+    private User user;
 
-    @Builder.Default
-    @OneToMany(mappedBy = "parentComment")
-    private List<Comment> childComments = new ArrayList<>();
+//    @JoinColumn(name="parent_comment_id")
+//    @ManyToOne
+//    private Comment parentComment;
+//
+//    @Builder.Default
+//    @OneToMany(mappedBy = "parentComment")
+//    private List<Comment> childComments = new ArrayList<>();
     //
     @Column(nullable = false)
     private String content;
@@ -45,12 +49,20 @@ public class Comment extends BaseTimeEntity {
             this.post = post;
         }
     }
-    public void setParentComment(Comment parentComment){
-        if(parentComment != null){
-            parentComment.getChildComments().remove(this);
-            parentComment.getChildComments().add(this);
-            this.parentComment = parentComment;
+    public void setUser(User user){
+        if(user != null){
+            user.getComments().remove(this);
+            user.getComments().add(this);
+            this.user = user;
         }
     }
+//
+//    public void setParentComment(Comment parentComment){
+//        if(parentComment != null){
+//            parentComment.getChildComments().remove(this);
+//            parentComment.getChildComments().add(this);
+//            this.parentComment = parentComment;
+//        }
+//    }
     //
 }

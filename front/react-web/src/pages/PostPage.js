@@ -1,4 +1,3 @@
-import PostDetail from '../components/post/PostDetail'
 import PostDetailQuill from '../components/post/PostDetailQuill'
 
 export default function PostPage({match}){

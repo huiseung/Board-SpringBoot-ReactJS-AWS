@@ -8,6 +8,7 @@ import com.example.back.post.responseDto.PostListResponseDto;
 import com.example.back.utils.ApiUtils;
 import com.example.back.utils.ApiUtils.ApiResult;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +24,7 @@ import static com.example.back.utils.ApiUtils.success;
 public class PostController {
     private final PostService postService;
 
+    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping
     public ApiResult create(@RequestPart(value="data") PostCreateRequestDto requestDto,
                          @RequestPart(value="images", required = false) List<MultipartFile> images) throws Exception{

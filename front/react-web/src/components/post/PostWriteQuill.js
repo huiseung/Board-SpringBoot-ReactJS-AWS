@@ -6,6 +6,7 @@ import { useMemo, useRef, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import {useSelector, useDispatch } from 'react-redux'
 import { postPostThunk } from '../../reducers/post/postPost'
+import { PAGE_URL } from '../../utils/uris';
 
 
 const StyledConatiner = styled.div`
@@ -44,20 +45,31 @@ const StyledSubmitButton = styled.button`
     color: black;
     border-radius: 20px;
 
-    margin-top: 1rem;
+    margin: 1rem;
+`
+
+const StyledSelect = styled.select`
+    width: 100px;
+    height: 20px;
+
+    margin-left: 1rem;
+
+    border-radius: 5px;
+    text-align: center;
 `
 
 function PostWriteQuill(){
+    const [category, setCategory] = useState("MOVIE")
     const [title, setTittle] = useState("")
     const [value, setValue] = useState("")
     const quillRef = useRef()
     const [images, setImages] = useState([])
     const history = useHistory()
+    const {loading: loginLoading, data: loginData, error: loginError} = useSelector(state=>state.loginReducer)
     const {loading: postPostLoading, data: postPostData, error: postPostError} = useSelector(state=>state.postPostReducer)
 
 
     Quill.register('modules/ImageResize', ImageResize)
-
 
     const modules = useMemo(
         ()=>{
@@ -96,7 +108,7 @@ function PostWriteQuill(){
     ]
 
     const author = "testId"
-    const category = "MOVIE"
+    //const category = "MOVIE"
 
     const dispatch = useDispatch()
     const onSubmit = ()=>{
@@ -114,22 +126,35 @@ function PostWriteQuill(){
         }
         console.log("images", formData.getAll("images"))
         formData.append("data", new Blob([JSON.stringify(textForm)], {type:"application/json"}))     
-        dispatch(postPostThunk(formData))
+        dispatch(postPostThunk(formData))   
     }
 
-    // useEffect(()=>{
-    //     if(postPostLoading === false && postPostData !== null){
-    //         history.push("/posts/"+postPostData?.postId)
-    //     }
-    // }, [postPostLoading, postPostData])
+    useEffect(()=>{
+        if(loginLoading===false && loginData === null){
+            history.push(PAGE_URL.LOGIN)
+        }
+    }, [history, loginLoading, loginData])
+
 
     return(
         <StyledConatiner>
             <StyledTitle>Cotito, ergo sum</StyledTitle>
+            
+            <div style={{"display": "flex",
+                        "alignItems": "baseline",
+                        "marginBottom": "1rem"
+                        }}>
+                <h3>Category: </h3>
+                <StyledSelect name="category" onChange={(event)=>{setCategory(event.target.value)}}>
+                    <option value = "MOVIE">영화</option>
+                    <option value = "NOVEL">소설</option>
+                </StyledSelect>
+            </div>
+
             <StyledTitleInput placeholder="제목을 입력해 주세요" onChange={(event)=>{setTittle(event.target.value)}}/>
             <StyledHr/>
             <div style={{"height":'500px',
-                          "margin-bottom": "2rem"}}>
+                          "marginBottom": "2rem"}}>
                 <ReactQuill
                     ref = {quillRef}
                     style={{height:'450px'}}
@@ -142,13 +167,16 @@ function PostWriteQuill(){
                 />
             </div>
             <div>
-                <input type="file" multiple="multiple" onChange={(event)=>{setImages(event.target.files)}}></input>
+                <input style={{}} type="file" multiple="multiple" onChange={(event)=>{setImages(event.target.files)}}></input>
+
             </div>
             <div style={{"display": "flex",
                         "flexDirection": "row",
                         "justifyContent": "center"}}>
                 <StyledSubmitButton onClick={onSubmit}>Submit</StyledSubmitButton>
+                <StyledSubmitButton onClick={()=>{history.goBack()}}>Back</StyledSubmitButton>
             </div>
+
         </StyledConatiner>       
     )   
 }
