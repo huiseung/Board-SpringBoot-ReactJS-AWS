@@ -13,6 +13,8 @@
 
 
 # 목차
+[실행 화면](#실행-화면)
+
 [버전 관리](#version-control)
 
 [테이블 설계](#table-diagram)
@@ -20,6 +22,10 @@
 [기술 스택](#skills)
 
 [개발 기록](#devlog)
+
+
+# 실행 화면 
+![실행 화면](./devlog/images/실행화면.gif)
 
 # Version Control
 ![gitflow](./devlog/images/gitflow.PNG)
@@ -70,6 +76,8 @@
 ## 완성 기능
 [배포](./devlog/배포.md)
 
+[API 공동 모듈](./devlog/API공동%20모듈.md)
+
 [회원 가입, 로그인, 로그아웃](./devlog/회원%20가입,%20로그인,%20로그아웃.md)
 
 [게시글 CRUD](./devlog/게시글%20CRUD.md)
@@ -80,4 +88,4 @@
 [좋아요, 조회수, 실시간 인기글](./devlog/좋아요,%20조회수,%20실시간%20인기글.md)
 
 ## 계획중인 기능
-
+- database replication
