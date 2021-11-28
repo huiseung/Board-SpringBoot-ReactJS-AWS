@@ -24,6 +24,9 @@
 [개발 기록](#devlog)
 
 
+# 사이트 주소
+- www.board.huiseung.com
+
 # 실행 화면 
 ![실행 화면](./devlog/images/실행화면.gif)
 
@@ -37,8 +40,9 @@
 - hotfix
   - 배포후 긴급 점검 branch
   - develop에 merge시킨 후 제거
-- test
-  - feature에서 작성한 기능과 hotfix에서 수정한 기능에 대한 테스트 코드 작성 branch
+- test 
+  - feature에서 작성한 기능과 hotfix에서 수정한 기능에 대한 실험 branch
+  - 배포환경과 논리적으론 똑같고 물리적으론 다른 환경에서 모의 배포를 해 테스트 해본다.
   - develop에 merge시킨 후 제거
 - develop
   - 현재 개발 상황을 저장 중인 branch
