@@ -25,7 +25,7 @@
 
 
 # 사이트 주소
-- www.board.huiseung.com
+- board.huiseung.com
 
 # 실행 화면 
 ![실행 화면](./devlog/images/실행화면.gif)

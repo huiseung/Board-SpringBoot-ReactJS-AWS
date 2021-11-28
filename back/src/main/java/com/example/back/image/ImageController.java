@@ -6,8 +6,7 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin({"http://localhost:3000", "http://127.0.0.1:3000", "https://board.huiseung.com"})
 @RequestMapping("/api/images")
 @RequiredArgsConstructor
 @RestController

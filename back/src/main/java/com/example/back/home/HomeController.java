@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.PostConstruct;
 import java.util.LinkedList;
 
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin({"http://localhost:3000", "http://127.0.0.1:3000", "https://board.huiseung.com"})
 @RequestMapping("/api")
 @RequiredArgsConstructor
 @RestController

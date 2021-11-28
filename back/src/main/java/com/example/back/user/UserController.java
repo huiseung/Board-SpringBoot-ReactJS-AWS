@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 
 import static com.example.back.utils.ApiUtils.success;
 
-@CrossOrigin({"http://localhost:3000", "http://127.0.0.1:3000"})
+@CrossOrigin({"http://localhost:3000", "http://127.0.0.1:3000",  "https://board.huiseung.com"})
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
 @RestController
