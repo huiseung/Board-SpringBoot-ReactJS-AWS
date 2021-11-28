@@ -31,10 +31,6 @@ export function postPostThunk(formData){
                             data: result.response
                         }
                     }
-                    //history.goBack()
-                    // const writeUrl = "/posts/"+result.response.postId
-                    // console.log(writeUrl)
-                    // history.push(writeUrl)
                     dispatch(action)
                 }
                 else if(result.success === false){
