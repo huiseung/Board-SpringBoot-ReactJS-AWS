@@ -3,6 +3,7 @@ package com.example.back.post;
 
 import com.example.back.comment.Comment;
 import com.example.back.comment.CommentDto;
+import com.example.back.comment.responseDto.CommentListResponseDto;
 import com.example.back.image.Image;
 import com.example.back.image.ImageDto;
 import com.example.back.user.User;

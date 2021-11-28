@@ -33,7 +33,8 @@ public class GeneralExceptionHandler {
     private ResponseEntity<ApiUtils.ApiResult<?>> newResponse(String message, HttpStatus status) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
-        return new ResponseEntity<>(error(message, status), headers, status);
+        //return new ResponseEntity<>(error(message, status), headers, status);
+        return new ResponseEntity<>(error(message, status), headers, HttpStatus.OK);
     }
 
     // 필요한 경우 적절한 예외타입을 선언하고 newResponse 메소드를 통해 응답을 생성하도록 합니다.

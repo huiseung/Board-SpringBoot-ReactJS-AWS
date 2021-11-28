@@ -2,6 +2,7 @@ package com.example.back.post.responseDto;
 
 
 import com.example.back.comment.CommentDto;
+import com.example.back.comment.responseDto.CommentListResponseDto;
 import com.example.back.image.Image;
 import com.example.back.image.ImageDto;
 import com.example.back.post.PostDto;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class PostDetailReadResponseDto {
     private Long id;
-    private List<CommentDto> comments;
+    private List<CommentListResponseDto> comments;
     private List<String> imageFileNames;
     private String title;
     private String content;
@@ -27,7 +28,7 @@ public class PostDetailReadResponseDto {
     public static PostDetailReadResponseDto of(PostDto postDto){
         return PostDetailReadResponseDto.builder()
                 .id(postDto.getId())
-                .comments(postDto.getComments().stream().map(CommentDto::of).collect(Collectors.toList()))
+                .comments(postDto.getComments().stream().map(CommentListResponseDto::of).collect(Collectors.toList()))
                 .imageFileNames(postDto.getImages().stream().map(Image::getFileName).collect(Collectors.toList()))
                 .title(postDto.getTitle())
                 .content(postDto.getContent())

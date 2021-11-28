@@ -63,7 +63,7 @@
   - react-router-dom
   - redux, react-redux, thunk
   - react-quill
-- CI/CD
+- 통합/배포
   - git
   - Docker
 - AWS
@@ -81,6 +81,7 @@
 [회원 가입, 로그인, 로그아웃](./devlog/회원%20가입,%20로그인,%20로그아웃.md)
 
 [게시글 CRUD](./devlog/게시글%20CRUD.md)
+
 
 ## 개발 중인 기능
 [댓글, 대댓글 CRUD, 댓글알림](./devlog/댓글,%20대댓글%20CURD,%20댓글알림.md)

@@ -26,12 +26,13 @@ public class CommentService {
     public CommentDto save(CommentCreateRequestDto requestDto){
         Post post = postRepository.findById(requestDto.getPostId())
                 .orElseThrow(()->new IllegalArgumentException("post가 없습니다"));
-        User user = userRepository.findByNickName(requestDto.getAuthor());
+        //User user = userRepository.findByNickName(requestDto.getAuthor());
         Comment comment = Comment.builder()
                 .content(requestDto.getContent())
+                .author(requestDto.getAuthor())
                 .build();
         comment.setPost(post);
-        comment.setUser(user);
+        //comment.setUser(user);
         return CommentDto.of(commentRepository.save(comment));
     }
 }

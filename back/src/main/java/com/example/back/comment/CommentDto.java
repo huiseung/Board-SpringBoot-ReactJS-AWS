@@ -16,7 +16,8 @@ import java.util.List;
 public class CommentDto {
     private Long id;
     private Post post;
-    private User user;
+    private String author;
+    //private User user;
     //private Comment parentComment;
     //private List<Comment> childComments;
     private String content;
@@ -25,7 +26,8 @@ public class CommentDto {
         return CommentDto.builder()
                 .id(comment.getId())
                 .post(comment.getPost())
-                .user(comment.getUser())
+                .author(comment.getAuthor())
+                //.user(comment.getUser())
                 //.parentComment(comment.getParentComment())
                 //.childComments(comment.getChildComments())
                 .content(comment.getContent())

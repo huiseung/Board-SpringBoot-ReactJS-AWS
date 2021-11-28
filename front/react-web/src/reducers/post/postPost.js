@@ -1,7 +1,20 @@
 import {postPost} from '../../utils/apis/post'
 import createAction from '../../utils/reducers/createAction'
+import { PAGE_URL } from '../../utils/uris'
 
 const [POST_POST, POST_POST_SUCCESS, POST_POST_FAIL] = createAction("POST_POST")
+
+const POST_CREATE_RESET = "POST_CREATE_RESET"
+
+
+export function postCreateResetThunk(){
+    return async function(dispatch){
+        const action = {
+            type: POST_CREATE_RESET
+        }
+        dispatch(action)
+    }
+}
 
 export function postPostThunk(formData){
     return async function(dispatch, useState){
@@ -14,10 +27,14 @@ export function postPostThunk(formData){
                 if(result.success === true){
                     const action = {
                         type: POST_POST_SUCCESS,
-                        payload:{
+                        payload: {
                             data: result.response
                         }
                     }
+                    //history.goBack()
+                    // const writeUrl = "/posts/"+result.response.postId
+                    // console.log(writeUrl)
+                    // history.push(writeUrl)
                     dispatch(action)
                 }
                 else if(result.success === false){
@@ -36,37 +53,7 @@ export function postPostThunk(formData){
 }
 
 
-// export function postPostThunk({title, content, author, category}){
-//     return async function(dispatch, useState){
-//         const action = {
-//             type: POST_POST
-//         }
-//         dispatch(action)
-//         postPost({title: title, content: content, author: author, category:category}).then(
-//             (result)=>{
-//                 if(result.success !== null){
-//                     const action = {
-//                         type: POST_POST_SUCCESS,
-//                         payload:{
-//                             data: result.response
-//                         }
-//                     }
-//                     dispatch(action)
-//                 }
-//                 else{
-//                     const action = {
-//                         type: POST_POST_FAIL,
-//                         payload:{
-//                             status: result.error.status,
-//                             message: "post를 작성하는데 실패했습니다."
-//                         }
-//                     }
-//                     dispatch(action)
-//                 }
-//             }
-//         )
-//     }
-// }
+
 
 const initState = {
     loading: false,
@@ -97,6 +84,13 @@ export default function postPostReducer(state=initState, action){
                 loading: false,
                 data: null,
                 error: action.payload
+            }
+
+        case POST_CREATE_RESET:
+            return{
+                loading: false,
+                data: null,
+                error: null
             }
         default:
             return state

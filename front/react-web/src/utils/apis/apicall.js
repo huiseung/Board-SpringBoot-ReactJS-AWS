@@ -25,7 +25,9 @@ export default function apiCall({method, url, queryparamter, requestBody, header
 
     return axios(options).then((response)=>{
         return response.data
-    }).catch((e)=>{
+    }).catch((e, response)=>{
+        console.log("error", e)
+        console.log(response)
         const error = {
             success: false,
             response: null,

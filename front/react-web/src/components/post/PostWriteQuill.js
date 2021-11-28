@@ -5,7 +5,7 @@ import { useHistory} from 'react-router-dom'
 import { useMemo, useRef, useState, useEffect } from 'react'
 import styled from 'styled-components'
 import {useSelector, useDispatch } from 'react-redux'
-import { postPostThunk } from '../../reducers/post/postPost'
+import { postCreateResetThunk, postPostThunk } from '../../reducers/post/postPost'
 import { PAGE_URL } from '../../utils/uris';
 
 
@@ -134,6 +134,14 @@ function PostWriteQuill(){
             history.push(PAGE_URL.LOGIN)
         }
     }, [history, loginLoading, loginData])
+
+    useEffect(()=>{
+        console.log("write", postPostData)
+        if(postPostData !== null){
+            dispatch(postCreateResetThunk())
+            history.push("/posts/"+postPostData.postId)
+        }
+    }, [history, postPostData])
 
 
     return(

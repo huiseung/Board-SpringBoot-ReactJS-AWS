@@ -11,16 +11,19 @@ import PostWriteQuill from './components/post/PostWriteQuill';
 
 function App() {
   localStorage.setItem("nickName", "testId")
+  console.log("app")
   return (
     <div className="App">
       <Palette/>
       <NavBar></NavBar>
-      <Route exact path={PAGE_URL.HOME} component={HomePage}></Route>
-      <Route path={PAGE_URL.SIGNUP} component={SignUpPage}></Route>
-      <Route path={PAGE_URL.LOGIN} component={LoginPage}></Route>
-      <Route exact path={PAGE_URL.POSTLIST} component={PostListPage}/>
-      <Route exact path={PAGE_URL.POST} component={PostPage}></Route>
-      <Route path={PAGE_URL.POSTWITE} component={PostWriteQuill}></Route>
+      <Switch>
+        <Route exact path={PAGE_URL.HOME} component={HomePage}></Route>
+        <Route path={PAGE_URL.SIGNUP} component={SignUpPage}></Route>
+        <Route path={PAGE_URL.LOGIN} component={LoginPage}></Route>
+        <Route exact path={PAGE_URL.POSTLIST} component={PostListPage}/>
+        <Route exact path={PAGE_URL.POST} component={PostPage}></Route>
+        <Route path={PAGE_URL.POSTWITE} component={PostWriteQuill}></Route>
+      </Switch>
     </div>
   );
 }

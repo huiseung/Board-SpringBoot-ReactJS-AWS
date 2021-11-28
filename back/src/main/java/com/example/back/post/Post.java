@@ -5,6 +5,7 @@ import com.example.back.baseTime.BaseTimeEntity;
 import com.example.back.comment.Comment;
 import com.example.back.image.Image;
 import com.example.back.user.User;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,7 +38,7 @@ public class Post extends BaseTimeEntity {
 
     @Builder.Default
     @OneToMany(mappedBy = "post")
-    private List<Comment> comments = new ArrayList <>();
+    private List<Comment> comments = new ArrayList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "post")
