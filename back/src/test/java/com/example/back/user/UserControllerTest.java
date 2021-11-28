@@ -25,7 +25,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-
 @TestPropertySource(properties = { "spring.config.location=classpath:application-test.yml" })
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -60,5 +59,4 @@ public class UserControllerTest {
                     .andReturn();
         }
     }
-
 }
