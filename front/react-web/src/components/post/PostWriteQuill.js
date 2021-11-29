@@ -68,7 +68,6 @@ function PostWriteQuill(){
     const {loading: loginLoading, data: loginData, error: loginError} = useSelector(state=>state.loginReducer)
     const {loading: postPostLoading, data: postPostData, error: postPostError} = useSelector(state=>state.postPostReducer)
 
-
     Quill.register('modules/ImageResize', ImageResize)
 
     const modules = useMemo(

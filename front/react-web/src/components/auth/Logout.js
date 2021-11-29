@@ -7,8 +7,8 @@ import { PAGE_URL } from "../../utils/uris"
 
 
 const StyledButton = styled.button`
-    width: 60px;
-    height: 40px;
+    width: 55px;
+    height: 35px;
     background-color: white;
     color: black;
     border-radius: 20px;

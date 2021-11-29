@@ -6,6 +6,7 @@ import postPatchReducer from './post/postPatch'
 import postDeleteReducer from './post/postDelete'
 import loginReducer from "./auth/login";
 import signUpReducer from "./auth/signUp";
+import commentPostReducer from "./comment/commentPost";
 
 const rootReducer = combineReducers({
     postlistGetReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     postDeleteReducer,
     loginReducer,
     signUpReducer,
+    commentPostReducer,
 })
 
 export default rootReducer

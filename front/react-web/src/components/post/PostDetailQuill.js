@@ -5,7 +5,7 @@ import {useSelector, useDispatch } from 'react-redux'
 import { postGetThunk } from '../../reducers/post/postGet'
 import { postPatchThunk } from '../../reducers/post/postPatch'
 import { postDeleteThunk } from '../../reducers/post/postDelete'
-import { commentPost } from '../../utils/apis/comment'
+import { commentPostThunk, commentCreateResetThunk } from '../../reducers/comment/commentPost'
 import { PAGE_URL } from '../../utils/uris'
 
 
@@ -21,25 +21,35 @@ const StyledHr = styled.hr`
 
 
 function PostDetailQuill(props){
-    const [content, setContent] = useState("")
+    const [commentContent, setCommentContent] = useState("")
     const history = useHistory()
     const {loading: loginLoading, data: loginData, error: loginError} = useSelector(state=>state.loginReducer)
     const {loading: postGetLoading, data: postGetData, error: postGetError} = useSelector(state=>state.postGetReducer) 
+    const {loading: commentPostLoading, data: commentPostData, error: commentPostError} = useSelector(state=>state.commentPostReducer) 
+
 
     const dispatch = useDispatch()
 
     useEffect(
         ()=>{
             dispatch(postGetThunk(props.postId))
-        },[]
+            if(commentPostData !== null){
+                setCommentContent("")
+                dispatch(commentCreateResetThunk())
+            }
+        }, [commentPostData]
     )
 
     const commentSubmit = (event) => {
         event.preventDefault()
-        if(loginData?.data === null){
-            history.push(PAGE_URL.LOGIN)
+        console.log("login?", loginData?.data)
+        if(loginData === null){
+            alert("Login후 댓글을 입력 해주세요")
         }
-        commentPost({author: loginData?.nickName, postId: postGetData?.id, content: content})
+        else{
+            //console.log("start comment post", {"author": loginData?.nickName, "postId": postGetData?.id, "content": content})
+            dispatch(commentPostThunk({author: loginData?.nickName, postId: postGetData?.id, content: commentContent}))
+        }
     }
 
     return(
@@ -61,7 +71,7 @@ function PostDetailQuill(props){
                             "flexDirection": "column"
                         }
                     }>
-                    <textarea onChange={(event)=>{setContent(event.target.value)}} placeholder="댓글을 작성해주세요"
+                    <textarea value={commentContent} onChange={(event)=>{setCommentContent(event.target.value)}} placeholder="댓글을 작성해주세요"
                         style={{
                             "height": "50px"
 
@@ -85,8 +95,8 @@ function PostDetailQuill(props){
                 {postGetData?.comments?.map((comment)=>{
                     return(
                         <li key={comment.id}>
-                            <div>작성자: {comment.content}</div>
-                            <div>댓글: {comment.author}</div>
+                            <div>댓글: {comment.content}</div>
+                            <div>작성자: {comment.author}</div>
                         </li>
                     )
                 })}

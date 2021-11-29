@@ -12,5 +12,6 @@ export function commentPost({author, postId, content}){
             content: content,
         }
     }
+    //console.log("POST comment", callParam)
     return apiCall(callParam)
 }

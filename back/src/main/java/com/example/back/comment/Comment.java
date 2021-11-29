@@ -13,6 +13,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Table(name="comments")
 @Getter
 @Entity
@@ -31,6 +32,7 @@ public class Comment extends BaseTimeEntity {
 //    @JoinColumn(name="user_id")
 //    @ManyToOne
 //    private User user;
+
     @Column
     private String author;
 
