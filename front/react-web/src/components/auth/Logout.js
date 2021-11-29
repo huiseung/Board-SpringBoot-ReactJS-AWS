@@ -29,7 +29,7 @@ function Logout(){
             if(loginLoading === false && loginData === null && loginError === null){
                 history.push(PAGE_URL.HOME)
             }
-        }, [history, loginData]
+        }, [history, loginLoading, loginData, loginError]
     )
 
     return(
