@@ -5,16 +5,20 @@ import {useSelector, useDispatch } from 'react-redux'
 import { postListGetThunk } from '../../reducers/post/postlist'
 
 const StyledTable = styled.table`
+    border-collapse: collapse;
+    width: 100%;
 `
 const StyledThead = styled.thead`
 `
 const StyledTh = styled.th`
+    text-align: center;
 `
 const StyledTbody = styled.tbody`
 `
 const StyledTr = styled.tr`
 `
 const StyledTd = styled.td`
+    text-align: center;
 `
 
 function PostList(){
@@ -42,10 +46,10 @@ function PostList(){
         <StyledTable>
             <StyledThead>
                 <StyledTr>
-                    <StyledTh>Category</StyledTh>
+                    <StyledTh style={{"width": "20px"}}>Category</StyledTh>
                     <StyledTh>Title</StyledTh>
-                    <StyledTh>Author</StyledTh>
-                    <StyledTh>CreateAt</StyledTh>
+                    <StyledTh style={{"width": "100px"}}>Author</StyledTh>
+                    <StyledTh style={{"width": "200px"}}>CreateAt</StyledTh>
                 </StyledTr>
 
             </StyledThead>
@@ -53,10 +57,10 @@ function PostList(){
                 {postListData?.map((data) => {
                     return(
                         <StyledTr key={data.postId}>
-                            <StyledTd>{data.category}</StyledTd>
+                            <StyledTd style={{"width": "20px"}}>{data.category}</StyledTd>
                             <StyledTd><Link to={'/posts/'+data.postId}>{data.title}</Link></StyledTd>
-                            <StyledTd>{data.author}</StyledTd>
-                            <StyledTd>{data.createAt}</StyledTd>
+                            <StyledTd style={{"width": "100px"}}>{data.author}</StyledTd>
+                            <StyledTd style={{"width": "200px"}}>{data.createAt}</StyledTd>
                         </StyledTr>                    
                     )
                 })}
@@ -64,11 +68,5 @@ function PostList(){
         </StyledTable>
     )
 }
-
-
-// <li key={data.postId}>
-//                         <div>{data.category}</div>
-//                         <Link to={'/posts/'+data.postId}>{data.title}</Link>
-//                     </li>
 
 export default React.memo(PostList)

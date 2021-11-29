@@ -1,12 +1,14 @@
 import styled from "styled-components"
 import { useEffect } from "react"
-import { withRouter } from "react-router"
+import { useHistory, withRouter } from "react-router"
 import { useSelector, useDispatch } from "react-redux"
 import { logoutThunk } from "../../reducers/auth/login"
 import { PAGE_URL } from "../../utils/uris"
 
 
 const StyledButton = styled.button`
+    width: 60px;
+    height: 40px;
     background-color: white;
     color: black;
     border-radius: 20px;
@@ -14,9 +16,10 @@ const StyledButton = styled.button`
 
 `
 
-function Logout({history}){    
+function Logout(){    
     const {loading: loginLoading, data: loginData, error: loginError} = useSelector(state=>state.loginReducer)
     const dispatch = useDispatch()
+    const history = useHistory()
     const onClick = () => {
         dispatch(logoutThunk())
     }
@@ -34,4 +37,4 @@ function Logout({history}){
     )
 }
 
-export default withRouter(Logout)
+export default Logout

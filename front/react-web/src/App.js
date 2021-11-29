@@ -10,8 +10,6 @@ import Palette from './utils/styles/palette';
 import PostWriteQuill from './components/post/PostWriteQuill';
 
 function App() {
-  localStorage.setItem("nickName", "testId")
-  console.log("app")
   return (
     <div className="App">
       <Palette/>

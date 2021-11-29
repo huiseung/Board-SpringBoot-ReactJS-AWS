@@ -6,11 +6,11 @@
   - Docker를 활용한 배포
   - 무중단 개발, 배포
   - git version 관리
+  - 프로젝트 관련 기록 틈틈히
 
 - 프로젝트 짧은 설명
   - 글을 쓸 수 있는 회원제 사이트
   - 댓글, 좋아요 등으로 등록된 글에 반응 할 수 있다
-
 
 # 목차
 [실행 화면](#실행-화면)
@@ -24,10 +24,9 @@
 [개발 기록](#devlog)
 
 
-# 사이트 주소
-- [board.huiseung.com](https://board.huiseung.com)
-
 # 실행 화면 
+- 사이트주소: [board.huiseung.com](https://board.huiseung.com)
+
 ![실행 화면](./devlog/images/실행화면.gif)
 
 # Version Control
@@ -71,26 +70,22 @@
   - git
   - Docker
 - AWS
-  - EC2
-  - RDS, MySQL
-  - S3
+  - EC2(Ubuntu18.04)
+  - RDS(MySQL), S3
+  - Route53
+  - Amplify
 
 # devlog
 
-## 완성 기능
+## 개발 중인 기능
 [배포](./devlog/배포.md)
 
-[API 공동 모듈](./devlog/API공동%20모듈.md)
+[API 문서화](./devlog/API%20문서화.md)
 
 [회원 가입, 로그인, 로그아웃](./devlog/회원%20가입,%20로그인,%20로그아웃.md)
 
-[게시글 CRUD](./devlog/게시글%20CRUD.md)
+[게시글 CRUD, 무한 스크롤](./devlog/게시글%20CRUD.md)
 
-
-## 개발 중인 기능
 [댓글, 대댓글 CRUD, 댓글알림](./devlog/댓글,%20대댓글%20CURD,%20댓글알림.md)
 
 [좋아요, 조회수, 실시간 인기글](./devlog/좋아요,%20조회수,%20실시간%20인기글.md)
-
-## 계획중인 기능
-- database replication

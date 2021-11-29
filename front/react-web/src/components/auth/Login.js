@@ -69,10 +69,9 @@ function Login({history}){
             <StyledLoginForm onSubmit={onSubmit}>
                 <StyledInput placeholder="Identifier" onChange={(event)=>{setIdentifier(event.target.value)}}></StyledInput>
                 <StyledInput placeholder="Password" type="password" onChange={(event)=>{setPassword(event.target.value)}}></StyledInput>
+                {({loginError} !== null) ? <div>{loginError?.message}</div>:<div></div>}
                 <StyledButton type="submit">Login</StyledButton>
-                <StyledButton>
-                    <Link to={PAGE_URL.SIGNUP}>SignUp</Link>
-                </StyledButton>
+                <StyledButton><Link to={PAGE_URL.SIGNUP}>SignUp</Link></StyledButton>
             </StyledLoginForm>
         </StyledContainer>
     )

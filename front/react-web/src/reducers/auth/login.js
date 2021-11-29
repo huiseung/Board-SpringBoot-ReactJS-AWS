@@ -25,7 +25,7 @@ export function loginThunk({identifier, password}){
                         type: LOGIN_FAIL,
                         payload:{
                             status: result.error.status,
-                            message: "LOGIN 실패했습니다"
+                            message: "로그인에 실패했습니다"
                         }
                     }
                     dispatch(action)

@@ -8,6 +8,7 @@ import Logout from '../auth/Logout'
 const StyledNav = styled.nav`
     display: flex;
     flex-direction: row;
+    align-items: center;
     width: 100%;
     margin: 0;
     padding: 0;
@@ -17,6 +18,8 @@ const StyledNav = styled.nav`
 `
 
 const StyledButton = styled.button`
+    width: 60px;
+    height: 40px;
     background-color: white;
     color: black;
     border-radius: 20px;
@@ -38,7 +41,7 @@ export default function NavBar(){
             <StyledNav>
                 <Link to = {PAGE_URL.HOME}>MyBoard</Link>
                 <div id="dummy"></div>
-                <Link to={PAGE_URL.POSTWITE}><StyledButton>Write</StyledButton></Link>
+                <StyledButton style={{"marginRight": "1rem"}}><Link  to={PAGE_URL.POSTWITE}>Write</Link></StyledButton>
                 {
                     (loginData === null)?(
                         <Fragment>
@@ -46,9 +49,13 @@ export default function NavBar(){
                             <Link to={PAGE_URL.SIGNUP}><StyledButton>SignUp</StyledButton></Link>
                         </Fragment>
                     ):(
-                        <Fragment>
+                        <div style={{"display": "flex",
+                                    "flexDirection": "row",
+                                    "alignItems": "center",
+                                    "marginLeft": "1rem"}}>
+                            <h4>Author: {loginData?.nickName}</h4>
                             <Logout></Logout>
-                        </Fragment>
+                        </div>
                     )
                 }
             </StyledNav>

@@ -5,8 +5,7 @@ export default function HomePage(){
    return(
        <div>
            <h1>Home</h1>
-
-           <Link to={PAGE_URL.POSTLIST}>POST LIST</Link>
+           <Link to={PAGE_URL.POSTLIST}><button>GET POST LIST</button></Link>
        </div>
    )
 }

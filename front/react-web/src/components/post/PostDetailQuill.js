@@ -14,13 +14,10 @@ const StyledContainer = styled.div`
     flex-direction: column;
 `
 
-
 const StyledHr = styled.hr`
     solid: 10px;
     margin-bottom: 1rem;
 `
-
-
 
 
 function PostDetailQuill(props){
@@ -43,7 +40,6 @@ function PostDetailQuill(props){
             history.push(PAGE_URL.LOGIN)
         }
         commentPost({author: loginData?.nickName, postId: postGetData?.id, content: content})
-
     }
 
     return(
@@ -59,11 +55,32 @@ function PostDetailQuill(props){
                 <StyledHr/>
             </div>
             <div>
-                <form onSubmit={commentSubmit}>
-                    <textarea onChange={(event)=>{setContent(event.target.value)}} placeholder="댓글을 작성해주세요"></textarea>
-                    <button type="submit">등록</button>
+                <form onSubmit={commentSubmit} style={
+                        {
+                            "display": "flex",
+                            "flexDirection": "column"
+                        }
+                    }>
+                    <textarea onChange={(event)=>{setContent(event.target.value)}} placeholder="댓글을 작성해주세요"
+                        style={{
+                            "height": "50px"
+
+                        }}>
+                        </textarea>
+                    <button type="submit" style={{
+                        "width": "50px",
+                        "marginTop": "1rem",
+                        "marginLeft": "auto",
+                        "marginRight": "1rem",
+                        "borderRadius": "1rem"
+                    }}>등록</button>
                 </form>
             </div>
+            <div>
+                <StyledHr/>
+            </div>
+            
+            <div>댓글 갯수: {postGetData?.comments?.length}</div>
             <ul>
                 {postGetData?.comments?.map((comment)=>{
                     return(
