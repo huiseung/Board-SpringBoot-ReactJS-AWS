@@ -14,5 +14,6 @@ public class PostCreateRequestDto {
     private String author;
     private String title;
     private String content;
+    private String prevContent;
     private String category;
 }

@@ -18,12 +18,19 @@ const StyledNav = styled.nav`
 `
 
 const StyledButton = styled.button`
-    width: 55px;
+    width: 80px;
     height: 35px;
-    background-color: white;
-    color: black;
+    background-color: #343a40;
+    color: white;
     border-radius: 20px;
+    border: none;
+    outline: none;
     margin-left: 1rem;
+
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: inherit;
+
 `
 
 
@@ -39,23 +46,27 @@ export default function NavBar(){
     return(
         <Fragment>
             <StyledNav>
-                <Link to = {PAGE_URL.HOME}>MyBoard</Link>
+                <Link to = {PAGE_URL.HOME}>
+                    <div style={
+                        {
+                            "fontFamily": "monospace",
+                            "fontWeight": "bold",
+                            "fontSize": "1.3rem",
+                        }}>My Board</div>
+                </Link>
                 <div id="dummy"></div>
-                <StyledButton style={{"marginRight": "1rem"}}><Link  to={PAGE_URL.POSTWITE}>Write</Link></StyledButton>
                 {
                     (loginData === null)?(
                         <Fragment>
-                            <Link to={PAGE_URL.LOGIN}><StyledButton>Login</StyledButton></Link>
-                            <Link to={PAGE_URL.SIGNUP}><StyledButton>SignUp</StyledButton></Link>
+                            <Link to={PAGE_URL.LOGIN}><StyledButton>로그인</StyledButton></Link>
+                            <Link to={PAGE_URL.SIGNUP}><StyledButton>회원가입</StyledButton></Link>
                         </Fragment>
                     ):(
-                        <div style={{"display": "flex",
-                                    "flexDirection": "row",
-                                    "alignItems": "center",
-                                    "marginLeft": "1rem"}}>
-                            <h4>Author: {loginData?.nickName}</h4>
+                        <Fragment>
+                            <h4 style={{"marginRight": "1rem"}}>Author: {loginData?.nickName}</h4>
+                            <StyledButton style={{"marginRight": "1rem"}}><Link  to={PAGE_URL.POSTWITE}>Write</Link></StyledButton>
                             <Logout></Logout>
-                        </div>
+                        </Fragment>
                     )
                 }
             </StyledNav>

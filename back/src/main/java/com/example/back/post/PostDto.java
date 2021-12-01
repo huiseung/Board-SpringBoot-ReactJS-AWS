@@ -25,7 +25,8 @@ public class PostDto {
     private Long id;
     private User user;
     private List<Comment> comments;
-    private List<Image> images;
+    private Image thumbnail;
+    //private List<Image> images;
     private String title;
     private String content;
     private PostCategory category;
@@ -37,7 +38,8 @@ public class PostDto {
                 .id(post.getId())
                 .user(post.getUser())
                 .comments(post.getComments())
-                .images(post.getImages())
+                .thumbnail(post.getThumbnail())
+                //.images(post.get())
                 .title(post.getTitle())
                 .content(post.getContent())
                 .category(post.getCategory())

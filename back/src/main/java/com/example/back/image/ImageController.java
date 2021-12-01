@@ -21,6 +21,7 @@ public class ImageController {
                 .ok()
                 .contentLength(data.length)
                 .header("Content-type", "application/octec-stream")
+                .header("Content-disposition", "attachment; filename=\""+fileName+"\"")
                 .body(resource);
     }
 }

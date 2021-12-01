@@ -35,6 +35,7 @@ public class PostService {
         Post post = Post.builder()
                 .title(requestDto.getTitle())
                 .content(requestDto.getContent())
+                .prevContent(requestDto.getPrevContent())
                 .category(PostCategory.valueOf(requestDto.getCategory()))
                 .build();
         post.setUser(user);

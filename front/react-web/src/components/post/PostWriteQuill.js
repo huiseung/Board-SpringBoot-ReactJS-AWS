@@ -12,10 +12,14 @@ import { PAGE_URL } from '../../utils/uris';
 const StyledConatiner = styled.div`
 `
 
-const StyledTitle = styled.h1`
+const StyledTitle = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
+
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: inherit;
 `
 
 const StyledTitleInput = styled.input`
@@ -58,12 +62,14 @@ const StyledSelect = styled.select`
     text-align: center;
 `
 
-function PostWriteQuill(){
-    const [category, setCategory] = useState("MOVIE")
+function PostWriteQuill(props){
+    const [category, setCategory] = useState("FREE")
     const [title, setTittle] = useState("")
     const [value, setValue] = useState("")
+    const [prevContent, setPrevContent] = useState("")
     const quillRef = useRef()
     const [images, setImages] = useState([])
+    const [thumbnail, setThumbnail] = useState("thumbnail.png")
     const history = useHistory()
     const {loading: loginLoading, data: loginData, error: loginError} = useSelector(state=>state.loginReducer)
     const {loading: postPostLoading, data: postPostData, error: postPostError} = useSelector(state=>state.postPostReducer)
@@ -106,7 +112,7 @@ function PostWriteQuill(){
         'background',
     ]
 
-    const author = "testId"
+    //const author = "testId"
     //const category = "MOVIE"
 
     const dispatch = useDispatch()
@@ -117,11 +123,12 @@ function PostWriteQuill(){
         let textForm = {
             title: title,
             content: value,
-            author: author,
+            prevContent: prevContent,
+            author: loginData?.nickName,
             category: category
         }
         for(let i=0; i < images.length;i++){
-            formData.append("images", images[i], images[i].name)
+            formData.append("images", images[0], images[0].name)
         }
         console.log("images", formData.getAll("images"))
         formData.append("data", new Blob([JSON.stringify(textForm)], {type:"application/json"}))     
@@ -143,6 +150,7 @@ function PostWriteQuill(){
     }, [history, postPostData])
 
 
+    console.log("preContent", prevContent)
     return(
         <StyledConatiner>
             <StyledTitle>Cotito, ergo sum</StyledTitle>
@@ -153,6 +161,7 @@ function PostWriteQuill(){
                         }}>
                 <h3>Category: </h3>
                 <StyledSelect name="category" onChange={(event)=>{setCategory(event.target.value)}}>
+                    <option value = "FREE">자유</option>
                     <option value = "MOVIE">영화</option>
                     <option value = "NOVEL">소설</option>
                 </StyledSelect>
@@ -168,14 +177,20 @@ function PostWriteQuill(){
                     theme="snow"
                     placeholder="내용을 입력해 주세요"
                     value={value}
-                    onChange={(content, delta, source, editor)=>setValue(editor.getHTML)}
+                    onChange={(content, delta, source, editor)=>{
+                        setValue(editor.getHTML)
+                        setPrevContent(editor.getText)
+                    }
+                    }
                     modules={modules}
                     formats={formats}
                 />
             </div>
             <div>
-                <input style={{}} type="file" multiple="multiple" onChange={(event)=>{setImages(event.target.files)}}></input>
-
+                <input  style={{
+                }} type="file" multiple="multiple" onChange={(event)=>{
+                    setImages(event.target.files)
+                    }}></input>
             </div>
             <div style={{"display": "flex",
                         "flexDirection": "row",

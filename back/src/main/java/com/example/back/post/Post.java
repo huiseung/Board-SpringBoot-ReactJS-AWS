@@ -33,22 +33,27 @@ public class Post extends BaseTimeEntity {
     @ManyToOne
     private User user;
 
-    @OneToOne
+    @OneToOne(mappedBy = "post")
     private Image thumbnail;
 
     @Builder.Default
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
-    @Builder.Default
-    @OneToMany(mappedBy = "post")
-    private List<Image> images = new ArrayList<>();
+//    @Builder.Default
+//    @OneToMany(mappedBy = "post")
+//    private List<Image> images = new ArrayList<>();
+
     //
     @Column(nullable = false)
     private String title;
     @Lob
     @Column(nullable = false)
     private String content;
+    @Lob
+    @Column
+    private String prevContent;
+
     @Column
     @Enumerated(EnumType.STRING)
     private PostCategory category;

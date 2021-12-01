@@ -22,7 +22,7 @@ public class Image {
     private Long id;
     //
     @JoinColumn(name="post_id")
-    @ManyToOne
+    @OneToOne
     private Post post;
     //
     @Column
@@ -31,10 +31,10 @@ public class Image {
     private String storagePath;
     //
     public void setPost(Post post){
-        if(post != null){
-            post.getImages().remove(this);
-            post.getImages().add(this);
-        }
+//        if(post != null){
+//            post.getImages().remove(this);
+//            post.getImages().add(this);
+//        }
         this.post = post;
     }
 }

@@ -15,17 +15,33 @@ import java.time.format.DateTimeFormatter;
 public class PostListRowResponseDto {
     private Long postId;
     private String category;
+    private String thumbnailPath;
     private String title;
+    private String prevContent;
     private String author;
     private String createAt;
 
     public static PostListRowResponseDto of(Post post){
-        return PostListRowResponseDto.builder()
-                .postId(post.getId())
-                .category(post.getCategory().name())
-                .title(post.getTitle())
-                .author(post.getUser().getNickName())
-                .createAt(post.getCreateAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
-                .build();
+        if(post.getThumbnail() != null){
+            return PostListRowResponseDto.builder()
+                    .postId(post.getId())
+                    .category(post.getCategory().name())
+                    .thumbnailPath(post.getThumbnail().getFileName())
+                    .title(post.getTitle())
+                    .prevContent(post.getPrevContent())
+                    .author(post.getUser().getNickName())
+                    .createAt(post.getCreateAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                    .build();
+        }
+        else{
+            return PostListRowResponseDto.builder()
+                    .postId(post.getId())
+                    .category(post.getCategory().name())
+                    .title(post.getTitle())
+                    .prevContent(post.getPrevContent())
+                    .author(post.getUser().getNickName())
+                    .createAt(post.getCreateAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                    .build();
+        }
     }
 }

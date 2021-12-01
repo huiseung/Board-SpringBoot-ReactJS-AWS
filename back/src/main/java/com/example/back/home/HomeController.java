@@ -36,15 +36,16 @@ public class HomeController {
                 .password("testPassword")
                 .build();
         userService.signUp(signUpRequestDto);
-//        for(int i = 0; i < 3; i++){
-//            PostCreateRequestDto postCreateRequestDto = PostCreateRequestDto.builder()
-//                    .author("testId")
-//                    .title("testContentTitle"+i)
-//                    .content("testContentContent"+i)
-//                    .category(PostCategory.MOVIE.name())
-//                    .build();
-//            postService.create(postCreateRequestDto, new LinkedList<MultipartFile>());
-//        }
+        for(int i = 0; i < 8; i++){
+            PostCreateRequestDto postCreateRequestDto = PostCreateRequestDto.builder()
+                    .author("testId")
+                    .title("testContentTitle"+i)
+                    .prevContent("testContentContent"+i)
+                    .content("testContentContent"+i)
+                    .category(PostCategory.FREE.name())
+                    .build();
+            postService.create(postCreateRequestDto, new LinkedList<MultipartFile>());
+        }
 //        for(int i = 0; i < 3; i++){
 //            PostCreateRequestDto postCreateRequestDto = PostCreateRequestDto.builder()
 //                    .author("testId")

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class PostDetailReadResponseDto {
     private Long id;
     private List<CommentListResponseDto> comments;
-    private List<String> imageFileNames;
+    //private List<String> imageFileNames;
     private String title;
     private String content;
     private String category;
@@ -29,7 +29,7 @@ public class PostDetailReadResponseDto {
         return PostDetailReadResponseDto.builder()
                 .id(postDto.getId())
                 .comments(postDto.getComments().stream().map(CommentListResponseDto::of).collect(Collectors.toList()))
-                .imageFileNames(postDto.getImages().stream().map(Image::getFileName).collect(Collectors.toList()))
+                //.imageFileNames(postDto.getImages().stream().map(Image::getFileName).collect(Collectors.toList()))
                 .title(postDto.getTitle())
                 .content(postDto.getContent())
                 .category(postDto.getCategory().name())

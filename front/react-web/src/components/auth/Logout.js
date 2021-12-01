@@ -7,12 +7,18 @@ import { PAGE_URL } from "../../utils/uris"
 
 
 const StyledButton = styled.button`
-    width: 55px;
+    width: 80px;
     height: 35px;
-    background-color: white;
-    color: black;
+    background-color: #343a40;
+    color: white;
     border-radius: 20px;
+    border: none;
+    outline: none;
     margin-left: 1rem;
+
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: inherit;
 
 `
 

@@ -101,7 +101,6 @@ function PostDetailQuill(props){
                     )
                 })}
             </ul>
-
         </StyledContainer>
     )
 }

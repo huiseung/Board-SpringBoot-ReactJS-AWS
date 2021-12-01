@@ -5,22 +5,14 @@ import {useSelector, useDispatch } from 'react-redux'
 import { postListGetThunk } from '../../reducers/post/postlist'
 import { Fragment } from 'react'
 
-const StyledTable = styled.table`
-    border-collapse: collapse;
-    width: 90%;
-    margin-left: 20px;
-`
-const StyledThead = styled.thead`
-`
-const StyledTh = styled.th`
-    text-align: center;
-`
-const StyledTbody = styled.tbody`
-`
-const StyledTr = styled.tr`
-`
-const StyledTd = styled.td`
-    text-align: center;
+import PostRow from './PostRow'
+
+
+const StyledContainer = styled.div`
+    display: flex;
+    justify-content: center; 
+    flex-wrap: wrap;
+    margin: 0px;
 `
 
 function PostList(){
@@ -44,38 +36,31 @@ function PostList(){
     }, [])
 
     console.log("postListData",postListData)
-    
-    
+    console.log("length", postListData?.length)
     return(
         <Fragment>
             {(postListData?.length === 0) ? 
                 (
-                <h2>첫번째 글쓴이가 되어 주세요</h2>
+                    <Fragment>
+                        <h2>첫번째 글쓴이가 되어 주세요</h2>
+                        <StyledContainer>
+                            <PostRow title="title2" prevContent="prevContent2" author="author1" createAt="yyyy-MM-dd HH:mm"></PostRow>
+                            <PostRow title="title3" prevContent="prevContent3" author="author1" createAt="yyyy-MM-dd HH:mm"></PostRow>
+                            <PostRow title="title4" prevContent="prevContent4" author="author1" createAt="yyyy-MM-dd HH:mm"></PostRow>
+                            <PostRow title="title4" prevContent="prevContent4" author="author1" createAt="yyyy-MM-dd HH:mm"></PostRow>
+                            <PostRow title="title4" prevContent="prevContent4" author="author1" createAt="yyyy-MM-dd HH:mm"></PostRow>
+                            <PostRow title="title4" prevContent="prevContent4" author="author1" createAt="yyyy-MM-dd HH:mm"></PostRow>
+                        </StyledContainer>
+                    </Fragment>
                 ):
-                (  
-                <StyledTable>
-                    <StyledThead>
-                        <StyledTr>
-                            <StyledTh style={{"textAlign":"left"}}>Title</StyledTh>
-                            <StyledTh style={{"width": "20px"}}>Category</StyledTh>
-                            <StyledTh style={{"width": "100px"}}>Author</StyledTh>
-                            <StyledTh style={{"width": "200px"}}>CreateAt</StyledTh>
-                        </StyledTr>
-
-                    </StyledThead>
-                    <StyledTbody>
+                (
+                    <StyledContainer>
                         {postListData?.map((data) => {
-                        return(
-                        <StyledTr key={data.postId}>
-                            <StyledTd style={{"textAlign": "left",
-                                              }}><Link to={'/posts/'+data.postId}>{data.title}</Link></StyledTd>
-                            <StyledTd style={{"width": "20px"}}>{data.category}</StyledTd>
-                            <StyledTd style={{"width": "100px"}}>{data.author}</StyledTd>
-                            <StyledTd style={{"width": "200px"}}>{data.createAt}</StyledTd>
-                        </StyledTr>                    
-                        )})}
-                    </StyledTbody>
-                </StyledTable>
+                            return <PostRow key={data.postId} postId = {data.postId} title={data.title} prevContent={data.prevContent} 
+                                author={data.author} createAt={data.createAt}
+                                category={data.category} thumbnail={data.thumbnailPath}></PostRow>
+                        })}
+                    </StyledContainer>
                 )
             }
         </Fragment>

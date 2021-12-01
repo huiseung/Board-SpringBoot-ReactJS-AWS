@@ -7,7 +7,7 @@
  배경화면을 페이지의 전체 영역에 채우기 위한 용도 */
 html {
   height: 100vh;
-  background-color: gainsboro;
+  background-color: #f8f9fa;
 }
 
 /* 링크에 색상 및 밑줄 없애기 */
