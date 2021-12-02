@@ -3,6 +3,8 @@ package com.example.back.post;
 
 import com.example.back.image.ImageService;
 import com.example.back.post.requestDto.PostCreateRequestDto;
+import com.example.back.post.responseDto.PostCreateResponseDto;
+import com.example.back.post.responseDto.PostDetailReadResponseDto;
 import com.example.back.post.responseDto.PostListResponseDto;
 import com.example.back.post.responseDto.PostListRowResponseDto;
 import com.example.back.user.User;
@@ -18,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -29,9 +32,9 @@ public class PostService {
     private static final Logger log = LoggerFactory.getLogger(PostService.class);
 
     @Transactional
-    public PostDto create(PostCreateRequestDto requestDto, List<MultipartFile> files){
+    public PostCreateResponseDto create(String identifier, PostCreateRequestDto requestDto, List<MultipartFile> files){
         //log.info("post create "+requestDto);
-        User user = userRepository.findByNickName(requestDto.getAuthor());
+        User user = userRepository.findByIdentifier(identifier).orElseThrow(()->new IllegalArgumentException(""));
         Post post = Post.builder()
                 .title(requestDto.getTitle())
                 .content(requestDto.getContent())
@@ -41,12 +44,13 @@ public class PostService {
         post.setUser(user);
         Post savePost = postRepository.save(post);
         imageService.save(savePost, files);
-        return PostDto.of(savePost);
+        return PostCreateResponseDto.of(savePost);
     }
 
     @Transactional
-    public PostDto readDetail(Long postId){
-        return PostDto.of(postRepository.findById(postId).orElseThrow(()->new IllegalArgumentException("")));
+    public PostDetailReadResponseDto readDetail(String viewerIdentifier, Long postId){
+        Post post = postRepository.findById(postId).orElseThrow(()->new IllegalArgumentException(""));
+        return PostDetailReadResponseDto.of(viewerIdentifier, post);
     }
 
     @Transactional
@@ -55,14 +59,28 @@ public class PostService {
         //PageRequest pageRequest = PageRequest.of(page, size);
         Page<Post> posts = postRepository.findAll(pageRequest);
         List<PostListRowResponseDto> postDtos = posts.stream().map(PostListRowResponseDto::of).collect(Collectors.toList());
-        for(PostListRowResponseDto postDto:postDtos){
-            log.info("postList read: "+postDto);
-        }
+//        for(PostListRowResponseDto postDto:postDtos){
+//            log.info("postList read: "+postDto);
+//        }
         Boolean isLast = posts.isLast();
         return PostListResponseDto.builder()
                 .postListRowResponseDtoList(postDtos)
                 .isLast(isLast)
                 .build();
+    }
+
+
+    @Transactional
+    public String delete(String deleteUserIdentifier, Long postId){
+        Post post = postRepository.findById(postId)
+                .orElseThrow(()->new IllegalArgumentException(""));
+        if(Objects.equals(post.getUser().getIdentifier(), deleteUserIdentifier)){
+            postRepository.delete(post);
+            return "delete success";
+        }
+        else{
+            throw new IllegalArgumentException("");
+        }
     }
 }
 

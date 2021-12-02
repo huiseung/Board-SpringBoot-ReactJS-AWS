@@ -124,7 +124,7 @@ function PostWriteQuill(props){
             title: title,
             content: value,
             prevContent: prevContent,
-            author: loginData?.nickName,
+            //author: loginData?.nickName,
             category: category
         }
         for(let i=0; i < images.length;i++){

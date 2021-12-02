@@ -11,7 +11,7 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 public class PostCreateRequestDto {
-    private String author;
+    //private String author;
     private String title;
     private String content;
     private String prevContent;

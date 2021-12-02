@@ -1,6 +1,8 @@
 package com.example.back.comment;
 
 import com.example.back.baseTime.BaseTimeEntity;
+import com.example.back.comment.requestDto.CommentCreateRequestDto;
+import com.example.back.comment.requestDto.CommentUpdateRequestDto;
 import com.example.back.post.Post;
 import com.example.back.user.User;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -29,12 +31,10 @@ public class Comment extends BaseTimeEntity {
     @JoinColumn(name="post_id")
     @ManyToOne
     private Post post;
-//    @JoinColumn(name="user_id")
-//    @ManyToOne
-//    private User user;
+    @JoinColumn(name="user_id")
+    @ManyToOne
+    private User user;
 
-    @Column
-    private String author;
 
 //    @JoinColumn(name="parent_comment_id")
 //    @ManyToOne
@@ -54,13 +54,17 @@ public class Comment extends BaseTimeEntity {
             this.post = post;
         }
     }
-//    public void setUser(User user){
-//        if(user != null){
-//            user.getComments().remove(this);
-//            user.getComments().add(this);
-//            this.user = user;
-//        }
-//    }
+    public void setUser(User user){
+        if(user != null){
+            user.getComments().remove(this);
+            user.getComments().add(this);
+            this.user = user;
+        }
+    }
+
+    public void update(CommentUpdateRequestDto commentUpdateRequestDto){
+        this.content = commentUpdateRequestDto.getContent();
+    }
 //
 //    public void setParentComment(Comment parentComment){
 //        if(parentComment != null){

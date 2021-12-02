@@ -1,12 +1,9 @@
 package com.example.back.image;
 
 import com.example.back.post.Post;
-import com.example.back.post.PostDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-
-import javax.persistence.*;
 
 
 @Getter

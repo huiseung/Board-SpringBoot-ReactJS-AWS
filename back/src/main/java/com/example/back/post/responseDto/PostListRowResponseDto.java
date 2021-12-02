@@ -22,26 +22,22 @@ public class PostListRowResponseDto {
     private String createAt;
 
     public static PostListRowResponseDto of(Post post){
-        if(post.getThumbnail() != null){
-            return PostListRowResponseDto.builder()
-                    .postId(post.getId())
-                    .category(post.getCategory().name())
-                    .thumbnailPath(post.getThumbnail().getFileName())
-                    .title(post.getTitle())
-                    .prevContent(post.getPrevContent())
-                    .author(post.getUser().getNickName())
-                    .createAt(post.getCreateAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
-                    .build();
+        PostListRowResponseDto postListRowResponseDto = PostListRowResponseDto.builder()
+                .postId(post.getId())
+                .category(post.getCategory().name())
+                .title(post.getTitle())
+                .prevContent(post.getPrevContent())
+                .author(post.getUser().getNickName())
+                .createAt(post.getCreateAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
+                .build();
+
+        if(post.getThumbnail() != null) {
+            postListRowResponseDto.setThumbnailPath(post.getThumbnail().getFileName());
         }
-        else{
-            return PostListRowResponseDto.builder()
-                    .postId(post.getId())
-                    .category(post.getCategory().name())
-                    .title(post.getTitle())
-                    .prevContent(post.getPrevContent())
-                    .author(post.getUser().getNickName())
-                    .createAt(post.getCreateAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
-                    .build();
-        }
+        return postListRowResponseDto;
+    }
+
+    private void setThumbnailPath(String thumbnailPath){
+        this.thumbnailPath = thumbnailPath;
     }
 }

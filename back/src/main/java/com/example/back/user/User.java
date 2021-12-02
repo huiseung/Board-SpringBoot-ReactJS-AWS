@@ -31,9 +31,9 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "user")
     private List<Post> posts = new ArrayList<>();
 
-//    @Builder.Default
-//    @OneToMany(mappedBy = "user")
-//    private List<Comment> comments = new ArrayList<>();
+    @Builder.Default
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments = new ArrayList<>();
     //
     @Enumerated(EnumType.STRING)
     @Column

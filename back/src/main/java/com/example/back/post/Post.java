@@ -33,11 +33,11 @@ public class Post extends BaseTimeEntity {
     @ManyToOne
     private User user;
 
-    @OneToOne(mappedBy = "post")
+    @OneToOne(mappedBy = "post", cascade=CascadeType.REMOVE)
     private Image thumbnail;
 
     @Builder.Default
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Comment> comments = new ArrayList<>();
 
 //    @Builder.Default

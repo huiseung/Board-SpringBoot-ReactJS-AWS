@@ -1,13 +1,9 @@
 package com.example.back.comment;
 
 import com.example.back.post.Post;
-import com.example.back.post.PostDto;
-import com.example.back.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.List;
 
 
 @Getter
@@ -26,7 +22,7 @@ public class CommentDto {
         return CommentDto.builder()
                 .id(comment.getId())
                 .post(comment.getPost())
-                .author(comment.getAuthor())
+                .author(comment.getUser().getNickName())
                 //.user(comment.getUser())
                 //.parentComment(comment.getParentComment())
                 //.childComments(comment.getChildComments())

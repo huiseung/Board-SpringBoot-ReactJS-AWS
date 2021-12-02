@@ -1,7 +1,7 @@
 package com.example.back.post.responseDto;
 
 
-import com.example.back.post.PostDto;
+import com.example.back.post.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -12,9 +12,9 @@ import lombok.Getter;
 public class PostCreateResponseDto {
     private Long postId;
 
-    public static PostCreateResponseDto of(PostDto postDto){
+    public static PostCreateResponseDto of(Post post){
         return PostCreateResponseDto.builder()
-                .postId(postDto.getId())
+                .postId(post.getId())
                 .build();
     }
 }

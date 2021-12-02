@@ -48,7 +48,7 @@ function PostDetailQuill(props){
         }
         else{
             //console.log("start comment post", {"author": loginData?.nickName, "postId": postGetData?.id, "content": content})
-            dispatch(commentPostThunk({author: loginData?.nickName, postId: postGetData?.id, content: commentContent}))
+            dispatch(commentPostThunk({postId: postGetData?.id, content: commentContent}))
         }
     }
 

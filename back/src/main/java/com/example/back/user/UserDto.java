@@ -2,13 +2,11 @@ package com.example.back.user;
 
 
 import com.example.back.post.Post;
-import com.example.back.post.PostDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Getter
 @Builder

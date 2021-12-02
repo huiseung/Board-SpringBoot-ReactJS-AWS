@@ -18,12 +18,12 @@ public class CustomUserDetails implements UserDetails {
     private String nickName;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public static CustomUserDetails of(UserDto userDto){
+    public static CustomUserDetails of(UserDto user){
         return CustomUserDetails.builder()
-                .identifier(userDto.getIdentifier())
-                .password(userDto.getPassword())
-                .nickName(userDto.getNickName())
-                .authorities(Collections.singleton(new SimpleGrantedAuthority(userDto.getUserRole().getKey())))
+                .identifier(user.getIdentifier())
+                .password(user.getPassword())
+                .nickName(user.getNickName())
+                .authorities(Collections.singleton(new SimpleGrantedAuthority(user.getUserRole().getKey())))
                 .build();
     }
 

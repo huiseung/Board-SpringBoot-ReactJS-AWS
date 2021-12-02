@@ -38,13 +38,13 @@ public class HomeController {
         userService.signUp(signUpRequestDto);
         for(int i = 0; i < 8; i++){
             PostCreateRequestDto postCreateRequestDto = PostCreateRequestDto.builder()
-                    .author("testId")
+                    //.author("testId")
                     .title("testContentTitle"+i)
                     .prevContent("testContentContent"+i)
                     .content("testContentContent"+i)
                     .category(PostCategory.FREE.name())
                     .build();
-            postService.create(postCreateRequestDto, new LinkedList<MultipartFile>());
+            postService.create("testId", postCreateRequestDto, new LinkedList<MultipartFile>());
         }
 //        for(int i = 0; i < 3; i++){
 //            PostCreateRequestDto postCreateRequestDto = PostCreateRequestDto.builder()
@@ -56,7 +56,6 @@ public class HomeController {
 //            postService.create(postCreateRequestDto, new LinkedList<MultipartFile>());
 //        }
     }
-
 
     @GetMapping("/health_check")
     public String health_check(){

@@ -36,8 +36,6 @@ public class TokenController {
 
     @PostMapping
     public ApiResult login(@RequestBody LoginRequestDto requestDto, HttpServletResponse response){
-        System.out.println(requestDto.getIdentifier());
-        System.out.println("========");
         LoginResponseDto responseDto = tokenService.login(requestDto);
         Cookie cookie = new Cookie(configUtils.getProperty("token.header"), responseDto.getAccessToken());
         cookie.setPath("/");
@@ -45,7 +43,6 @@ public class TokenController {
         response.addCookie(cookie);
         Collection<String> headers = response.getHeaders(HttpHeaders.SET_COOKIE);
         for(String header: headers){
-            System.out.println(header);
             response.setHeader(HttpHeaders.SET_COOKIE, header+"; Secure; SameSite=None");
         }
         return success(responseDto);

@@ -37,8 +37,8 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDto userDto = findByIdentifier(username);
-        return CustomUserDetails.of(userDto);
+        UserDto user = findByIdentifier(username);
+        return CustomUserDetails.of(user);
     }
 
 }

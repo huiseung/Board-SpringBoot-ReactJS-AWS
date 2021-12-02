@@ -15,14 +15,14 @@ export function commentCreateResetThunk(){
     }
 }
 
-export function commentPostThunk({author, postId, content}){
+export function commentPostThunk({ postId, content}){
     return async function(dispatch, useState){
         const action = {
             type: COMMENT_POST
         }
         dispatch(action)
         //console.log("Post comment thunk...")
-        commentPost({author, postId, content}).then(
+        commentPost({postId, content}).then(
             (result)=>{
                 if(result.success === true){
                     const action = {

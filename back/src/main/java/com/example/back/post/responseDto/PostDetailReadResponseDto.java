@@ -1,16 +1,17 @@
 package com.example.back.post.responseDto;
 
 
-import com.example.back.comment.CommentDto;
+import com.example.back.comment.Comment;
 import com.example.back.comment.responseDto.CommentListResponseDto;
-import com.example.back.image.Image;
-import com.example.back.image.ImageDto;
-import com.example.back.post.PostDto;
+import com.example.back.post.Post;
+import com.example.back.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Getter
@@ -24,16 +25,22 @@ public class PostDetailReadResponseDto {
     private String content;
     private String category;
     private String author;
+    private boolean isEdit;
 
-    public static PostDetailReadResponseDto of(PostDto postDto){
+    public static PostDetailReadResponseDto of(String viewerIdentifier, Post post){
+        List<CommentListResponseDto> comments = new ArrayList<>();
+        for (Comment comment : post.getComments()) {
+            comments.add(CommentListResponseDto.of(viewerIdentifier, comment));
+        }
+        User user = post.getUser();
         return PostDetailReadResponseDto.builder()
-                .id(postDto.getId())
-                .comments(postDto.getComments().stream().map(CommentListResponseDto::of).collect(Collectors.toList()))
-                //.imageFileNames(postDto.getImages().stream().map(Image::getFileName).collect(Collectors.toList()))
-                .title(postDto.getTitle())
-                .content(postDto.getContent())
-                .category(postDto.getCategory().name())
-                .author(postDto.getUser().getNickName())
+                .id(post.getId())
+                .comments(comments)
+                .title(post.getTitle())
+                .content(post.getContent())
+                .category(post.getCategory().name())
+                .author(user.getNickName())
+                .isEdit(Objects.equals(viewerIdentifier, user.getIdentifier()))
                 .build();
     }
 }
