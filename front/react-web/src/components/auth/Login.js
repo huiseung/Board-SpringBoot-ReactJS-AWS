@@ -59,7 +59,7 @@ function Login({history}){
     
     useEffect(()=>{
         if(loginData != null){
-            history.push(PAGE_URL.HOME)
+            history.goBack()
         }
     }, [history, loginData])
 

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Getter
@@ -15,6 +16,7 @@ public class CommentListResponseDto {
     Long id;
     String content;
     String author;
+    private String createAt;
     boolean isEdit;
 
     public static CommentListResponseDto of(String viewerIdentifier, Comment comment){
@@ -23,6 +25,7 @@ public class CommentListResponseDto {
                 .id(comment.getId())
                 .content(comment.getContent())
                 .author(user.getNickName())
+                .createAt(comment.getCreateAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                 .isEdit(Objects.equals(viewerIdentifier, user.getIdentifier()))
                 .build();
     }

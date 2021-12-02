@@ -57,7 +57,7 @@ public class CommentService {
                 .orElseThrow(()->new IllegalArgumentException(""));
         if(Objects.equals(comment.getUser().getIdentifier(), identifier)){
             commentRepository.delete(comment);
-            return "delete success";
+            return "delete success" + Long.toString(comment.getId());
         }
         throw new IllegalArgumentException("");
     }

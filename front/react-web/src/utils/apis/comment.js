@@ -14,3 +14,12 @@ export function commentPost({postId, content}){
     //console.log("POST comment", callParam)
     return apiCall(callParam)
 }
+
+export function commentDelete(commentId){
+    const callParam = {
+        method: "DELETE",
+        url: RESOURCE + "/"+commentId,
+    }
+    console.log("comment delete call param", callParam)
+    return apiCall(callParam)
+}

@@ -1,34 +1,31 @@
-import {postGet} from '../../utils/apis/post'
-import createAction from '../../utils/reducers/createAction'
+import { commentDelete } from "../../utils/apis/comment";
+import createAction from "../../utils/reducers/createAction";
 
-const [POST_GET, POST_GET_SUCCESS, POST_GET_FAIL] = createAction("POST_GET")
+const [COMMENT_DELETE, COMMENT_DELETE_SUCCESS, COMMENT_DELETE_FAIL] = createAction("COMMENT_DELETE")
 
-
-export function postGetThunk(postId){
+export function commentDeleteThunk(commentId){
     return async function(dispatch, useState){
         const action = {
-            type: POST_GET
+            type: COMMENT_DELETE
         }
         dispatch(action)
-        postGet(postId).then(
+        commentDelete(commentId).then(
             (result)=>{
-                console.log("postGet ", result)
                 if(result.success === true){
                     const action = {
-                        type: POST_GET_SUCCESS,
+                        type: COMMENT_DELETE_SUCCESS,
                         payload:{
-                            data: result.response,
-                            //isEdit: result.response.isEdit
+                            data: result.response
                         }
                     }
                     dispatch(action)
                 }
                 else if(result.success === false){
                     const action = {
-                        type: POST_GET_FAIL,
+                        type: COMMENT_DELETE_FAIL,
                         payload:{
                             status: result.error.status,
-                            message: "post를 가져오는데 실패했습니다."
+                            message: "comment 삭제에 실패했습니다"
                         }
                     }
                     dispatch(action)
@@ -41,35 +38,31 @@ export function postGetThunk(postId){
 const initState = {
     loading: false,
     data: null,
-    //isEdit: false,
     error: null
 }
 
-export default function postGetReducer(state=initState, action){
+
+export default function commentDeleteReducer(state=initState, action){
     switch(action.type){
-        case POST_GET:
+        case COMMENT_DELETE:
             return{
                 ...state,
                 loading: true,
                 data: null,
-                //isEdit: false,
                 error: null
-            }
-        
-        case POST_GET_SUCCESS:
+            }        
+        case COMMENT_DELETE_SUCCESS:
             return{
                 ...state,
                 loading: false,
                 data: action.payload.data,
-                //isEdit: action.payload.isEdit,
                 error: null
             }
-        case POST_GET_FAIL:
+        case COMMENT_DELETE_FAIL:
             return{
                 ...state,
                 loading: false,
                 data: null,
-                //isEdit: false,
                 error: action.payload
             }
         default:

@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -26,6 +27,8 @@ public class PostDetailReadResponseDto {
     private String category;
     private String author;
     private boolean isEdit;
+    private String createAt;
+
 
     public static PostDetailReadResponseDto of(String viewerIdentifier, Post post){
         List<CommentListResponseDto> comments = new ArrayList<>();
@@ -40,6 +43,7 @@ public class PostDetailReadResponseDto {
                 .content(post.getContent())
                 .category(post.getCategory().name())
                 .author(user.getNickName())
+                .createAt(post.getCreateAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")))
                 .isEdit(Objects.equals(viewerIdentifier, user.getIdentifier()))
                 .build();
     }

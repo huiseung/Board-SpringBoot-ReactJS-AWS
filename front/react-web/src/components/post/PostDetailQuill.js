@@ -7,11 +7,14 @@ import { postPatchThunk } from '../../reducers/post/postPatch'
 import { postDeleteThunk } from '../../reducers/post/postDelete'
 import { commentPostThunk, commentCreateResetThunk } from '../../reducers/comment/commentPost'
 import { PAGE_URL } from '../../utils/uris'
+import { Fragment } from 'react'
+import { commentDeleteThunk } from '../../reducers/comment/commentDelelte'
 
 
 const StyledContainer = styled.div`
     display: flex;
     flex-direction: column;
+    margin: 0 160px 0 160px;
 `
 
 const StyledHr = styled.hr`
@@ -22,10 +25,12 @@ const StyledHr = styled.hr`
 
 function PostDetailQuill(props){
     const [commentContent, setCommentContent] = useState("")
+    const [isWriteComment, setIsWriteComment] = useState(false)
     const history = useHistory()
     const {loading: loginLoading, data: loginData, error: loginError} = useSelector(state=>state.loginReducer)
     const {loading: postGetLoading, data: postGetData, error: postGetError} = useSelector(state=>state.postGetReducer) 
     const {loading: commentPostLoading, data: commentPostData, error: commentPostError} = useSelector(state=>state.commentPostReducer) 
+    const {loading: commentDeleteLoading, data: commentDeleteData, error: commentDeleteError} = useSelector(state=>state.commentDeleteReducer) 
 
 
     const dispatch = useDispatch()
@@ -39,25 +44,78 @@ function PostDetailQuill(props){
             }
         }, [commentPostData]
     )
+    useEffect(
+        ()=>{
+            console.log("commentDeleteData",commentDeleteData)
+            dispatch(postGetThunk(props.postId))
+        }, [commentDeleteData]
+    )
 
     const commentSubmit = (event) => {
         event.preventDefault()
-        console.log("login?", loginData?.data)
-        if(loginData === null){
-            alert("Login후 댓글을 입력 해주세요")
-        }
-        else{
-            //console.log("start comment post", {"author": loginData?.nickName, "postId": postGetData?.id, "content": content})
-            dispatch(commentPostThunk({postId: postGetData?.id, content: commentContent}))
-        }
+        dispatch(commentPostThunk({postId: postGetData?.id, content: commentContent}))
     }
 
     return(
-        <StyledContainer>
-            <div>Title: {postGetData?.title}</div>
-            <div>Category: {postGetData?.category}</div>
-            <div>Author: {postGetData?.author}</div>
-            <div>
+        <StyledContainer styled={{
+            "backgroundColor": "white",
+        }}>
+            <div style={{
+                "display": "flex",
+                "flexDirection": "column",
+                "justifyItems": "center",
+            }}>
+                <div style={{
+                    "display": "flex",
+                    "flexDirection":"column",
+                    "justifyItems":"center",
+                    "alignItems":"center"
+                }}>
+                    <h1>{postGetData?.title}</h1>
+                </div>
+                <div>
+                    {
+                        (postGetData?.edit)?
+                        (<div style={{
+                            "display":"flex",
+                            "justifyContent":"flex-end"
+                        }}>
+                            <button onClick={()=>{
+                                dispatch(postDeleteThunk(postGetData?.id))
+                                history.push(PAGE_URL.HOME)
+                            }}
+                            style={{
+                                "marginBottom": "1rem",
+                                "outline": "none",
+                                "border": "none",
+                                "height": "2rem",
+                                "padding":"0px",
+                                "cursor": "pointer",
+                                "width": "4rem"    
+                            }}>삭제</button>
+                        </div>):
+                        (<Fragment>
+
+                        </Fragment>)
+                    }
+                </div>
+                <div style={{
+                    "display": "flex",
+                    "flexDirection": "row",
+                    "justifyContent": "flex-start",
+                }}>
+                    <span>{postGetData?.author}</span>
+                    <span style={{
+                        "marginLeft":"0.5rem",
+                        "marginRight":"0.5rem"
+                    }}>·</span>
+                    <span>{postGetData?.category}</span>
+
+                </div>
+            </div>
+            <div  style={{
+                    "marginBottom": "1rem"
+                }}>
                 <StyledHr/>
             </div>
             <div dangerouslySetInnerHTML={{__html: postGetData?.content}}></div>
@@ -65,26 +123,64 @@ function PostDetailQuill(props){
                 <StyledHr/>
             </div>
             <div>
-                <form onSubmit={commentSubmit} style={
-                        {
-                            "display": "flex",
-                            "flexDirection": "column"
-                        }
-                    }>
-                    <textarea value={commentContent} onChange={(event)=>{setCommentContent(event.target.value)}} placeholder="댓글을 작성해주세요"
-                        style={{
-                            "height": "50px"
-
-                        }}>
-                        </textarea>
-                    <button type="submit" style={{
-                        "width": "50px",
-                        "marginTop": "1rem",
-                        "marginLeft": "auto",
-                        "marginRight": "1rem",
-                        "borderRadius": "1rem"
-                    }}>등록</button>
-                </form>
+                <button onClick={()=>{
+                    if(loginData === null){
+                        alert("Login후 댓글을 입력 해주세요")
+                    }
+                    else{
+                        setIsWriteComment(!isWriteComment)}
+                    }      
+                } style={
+                    {
+                        "marginBottom": "1rem",
+                        "outline": "none",
+                        "border": "none",
+                        "borderRadius": "4px",
+                        "backgroundColor": "#12b886",
+                        "fontWeight": "bold",
+                        "fontFamily": "inherit",
+                        "color": "white",
+                        "height": "2rem",
+                        "width": "4rem",
+                    }
+                }>댓글 달기</button>
+                {
+                    (isWriteComment)?(
+                        <Fragment>
+                            <form onSubmit={commentSubmit} style={
+                                {
+                                    "display": "flex",
+                                    "flexDirection": "column"
+                                }
+                            }>
+                                <textarea value={commentContent} onChange={(event)=>{setCommentContent(event.target.value)}} placeholder="댓글을 작성해주세요"
+                                    style={{
+                                        "height": "50px",
+                                        "border": "1px solid #e9ecef",
+                                    }}>
+                                </textarea>
+                                <button type="submit" style={{
+                                    
+                                    "marginTop": "1rem",
+                                    "marginLeft": "auto",
+                                    "marginRight": "1rem",
+                                    "outline": "none",
+                                    "border": "none",
+                                    "borderRadius": "4px",
+                                    "backgroundColor": "#12b886",
+                                    "fontWeight": "bold",
+                                    "fontFamily": "inherit",
+                                    "color": "white",
+                                    "height": "2rem",
+                                    "width": "4rem",
+                                }}>등록</button>
+                            </form>
+                        </Fragment>
+                    ):(
+                        <Fragment>
+                        </Fragment>
+                    )
+                }
             </div>
             <div>
                 <StyledHr/>
@@ -94,10 +190,56 @@ function PostDetailQuill(props){
             <ul>
                 {postGetData?.comments?.map((comment)=>{
                     return(
-                        <li key={comment.id}>
+                        <div key={comment.id}>
+                            <div style={{
+                                "display":"flex",
+                                "justifyContent":"space-between",
+                                "alignItems":"center",
+                                "marginBottom":"1rem"
+                            }}>
+                                <div>
+                                    <span>작성자: {comment.author}</span>
+                                    <span style={{
+                                        "marginLeft":"0.5rem",
+                                        "marginRight":"0.5rem"
+                                    }}>·</span>
+                                    <span>{comment.createAt}</span>
+                                </div>
+                                <div>
+                                    {comment.edit?
+                                        (<div style={{
+                                            "display": "flex",
+                                            "flexDirection":"column",
+                                            "justifyContent":"center",
+                                            "alignItems":"center"
+                                        }}>
+                                            <button onClick={
+                                                ()=>{
+                                                    console.log("comment", comment.id)
+                                                    dispatch(commentDeleteThunk(comment.id))
+                                                }
+                                            } style={{
+                                                "marginBottom": "1rem",
+                                                "outline": "none",
+                                                "border": "none",
+                                                "height": "2rem",
+                                                "padding":"0px",
+                                                "cursor": "pointer",
+                                                "width": "4rem" 
+                                            }}>Delete</button>
+                                        </div>)
+                                        :
+                                        (<Fragment>
+                                        
+                                        </Fragment>)
+                                    }
+                                </div>
+                            </div>
                             <div>댓글: {comment.content}</div>
-                            <div>작성자: {comment.author}</div>
-                        </li>
+                            <div>
+                                <StyledHr/>
+                            </div>
+                        </div>
                     )
                 })}
             </ul>

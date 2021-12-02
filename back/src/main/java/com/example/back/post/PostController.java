@@ -38,7 +38,13 @@ public class PostController {
     @GetMapping("/{postId}")
     public ApiResult readDetail(@AuthenticationPrincipal CustomUserDetails userDetails,
                                 @PathVariable("postId")Long postId){
-        return success(postService.readDetail(userDetails.getUsername(), postId));
+        String identifier;
+        if (userDetails != null) {
+            identifier = userDetails.getUsername();
+        }else{
+            identifier = null;
+        }
+        return success(postService.readDetail(identifier, postId));
     }
 
     @GetMapping
