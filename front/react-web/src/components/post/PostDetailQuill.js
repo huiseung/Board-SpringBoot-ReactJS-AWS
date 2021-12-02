@@ -81,8 +81,9 @@ function PostDetailQuill(props){
                             "justifyContent":"flex-end"
                         }}>
                             <button onClick={()=>{
-                                dispatch(postDeleteThunk(postGetData?.id))
-                                history.push(PAGE_URL.HOME)
+                                dispatch(postDeleteThunk(postGetData?.id)).then(
+                                    history.push(PAGE_URL.HOME)
+                                )
                             }}
                             style={{
                                 "marginBottom": "1rem",
@@ -226,7 +227,7 @@ function PostDetailQuill(props){
                                                 "padding":"0px",
                                                 "cursor": "pointer",
                                                 "width": "4rem" 
-                                            }}>Delete</button>
+                                            }}>삭제</button>
                                         </div>)
                                         :
                                         (<Fragment>
