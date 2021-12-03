@@ -27,7 +27,8 @@ public class ImageService {
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(file.getSize());
         System.out.println("##########content type"+file.getContentType());
-        objectMetadata.setContentType(file.getContentType());
+        //objectMetadata.setContentType(file.getContentType());
+        objectMetadata.setContentType("image/*");
         try(InputStream inputStream = file.getInputStream()){
             s3Service.upload(inputStream, storagePath, objectMetadata);
         } catch (IOException e) {
