@@ -15,7 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Objects;
 
 @RequiredArgsConstructor
 @Service
@@ -26,7 +30,8 @@ public class ImageService {
 
     @Transactional
     public void upload(Post post, MultipartFile file){
-        String storagePath = System.currentTimeMillis()+"_"+file.getOriginalFilename();
+        String fileName = URLEncoder.encode(Objects.requireNonNull(file.getOriginalFilename()), StandardCharsets.UTF_8);
+        String storagePath = System.currentTimeMillis()+"_"+fileName;
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(file.getSize());
         //objectMetadata.setContentType(file.getContentType());
@@ -37,7 +42,7 @@ public class ImageService {
             e.printStackTrace();
         }
         Image image = Image.builder()
-                .fileName(file.getOriginalFilename())
+                .fileName(fileName)
                 .storagePath(storagePath)
                 .build();
         image.setPost(post);
