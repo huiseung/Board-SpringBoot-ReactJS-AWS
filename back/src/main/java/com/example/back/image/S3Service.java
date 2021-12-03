@@ -7,6 +7,7 @@ import com.amazonaws.util.IOUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +21,7 @@ public class S3Service {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
+    @Transactional
     public void upload(InputStream inputStream, String storagePath, ObjectMetadata objectMetadata){
         amazonS3.putObject(
                 new PutObjectRequest(bucket, storagePath, inputStream, objectMetadata)
@@ -27,6 +29,7 @@ public class S3Service {
         );
     }
 
+    @Transactional
     public byte[] download(String storagePath){
         S3Object s3Object = amazonS3.getObject(bucket, storagePath);
         S3ObjectInputStream inputStream = s3Object.getObjectContent();
@@ -38,6 +41,7 @@ public class S3Service {
         return null;
     }
 
+    @Transactional
     public void delete(String storagePath){
         amazonS3.deleteObject(bucket, storagePath);
     }

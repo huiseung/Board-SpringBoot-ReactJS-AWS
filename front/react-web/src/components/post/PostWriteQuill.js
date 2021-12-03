@@ -188,6 +188,7 @@ function PostWriteQuill(props){
                 />
             </div>
             <div>
+                <div>Thumbnail 이미지 추가(png)</div>
                 <input  style={{
                 }} type="file" multiple="multiple" onChange={(event)=>{
                     setImages(event.target.files)

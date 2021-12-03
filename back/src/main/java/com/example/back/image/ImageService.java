@@ -9,6 +9,7 @@ import com.example.back.post.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -22,6 +23,8 @@ public class ImageService {
     private final ImageRepository imageRepository;
     private final S3Service s3Service;
 
+
+    @Transactional
     public void upload(Post post, MultipartFile file){
         String storagePath = System.currentTimeMillis()+"_"+file.getOriginalFilename();
         ObjectMetadata objectMetadata = new ObjectMetadata();
@@ -42,6 +45,7 @@ public class ImageService {
         imageRepository.save(image);
     }
 
+    @Transactional
     public void save(Post post, List<MultipartFile> files){
         if(files != null){
             for (MultipartFile file : files) {
@@ -50,6 +54,7 @@ public class ImageService {
         }
     }
 
+    @Transactional
     public byte[] download(String fileName){
         Image fineImage = imageRepository.findByFileName(fileName);
         return s3Service.download(fineImage.getStoragePath());
