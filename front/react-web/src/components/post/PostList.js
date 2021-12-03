@@ -42,7 +42,7 @@ function PostList(){
             {(postListData?.length === 0) ? 
                 (
                     <Fragment>
-                        <h2>첫번째 글쓴이가 되어 주세요</h2>
+                        <h2>Loading...</h2>
                     </Fragment>
                 ):
                 (

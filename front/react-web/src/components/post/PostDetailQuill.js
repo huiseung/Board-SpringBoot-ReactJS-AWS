@@ -30,6 +30,7 @@ function PostDetailQuill(props){
     const [isWriteComment, setIsWriteComment] = useState(false)
     const [isUpdateComment, setIsUpdateComment] = useState(false)
     const [commentUpdateContent, setCommentUpdateContent] = useState("")
+    const [commentUpdateId, setCommentUpdateId] = useState(0)
     const [isUpdatePost, setIsUpdatePost] = useState(false)
 
     const history = useHistory()
@@ -250,6 +251,7 @@ function PostDetailQuill(props){
                                                 ()=>{
                                                     console.log("comment", comment.id)
                                                     setIsUpdateComment(!isUpdateComment)
+                                                    setCommentUpdateId(comment.id)
                                                     setCommentUpdateContent(comment.content)
                                                     //dispatch(commentDeleteThunk(comment.id))
                                                 }
@@ -270,7 +272,7 @@ function PostDetailQuill(props){
                                     }
                                 </div>
                             </div>
-                            {(isUpdateComment)?(
+                            {(isUpdateComment&&(comment.id === commentUpdateId))?(
                             <div>
                                 <form onSubmit={(event)=>{
                                     event.preventDefault()
