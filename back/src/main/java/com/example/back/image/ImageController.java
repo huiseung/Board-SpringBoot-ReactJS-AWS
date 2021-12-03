@@ -3,6 +3,7 @@ package com.example.back.image;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,8 @@ public class ImageController {
         return ResponseEntity
                 .ok()
                 .contentLength(data.length)
-                .header("Content-type", "image/*")
+                //.header("Content-type", "image/*")
+                .contentType(MediaType.IMAGE_PNG)
                 //.header("Content-type", "application/octec-stream")
                 .header("Content-disposition", "attachment; filename=\""+fileName+"\"")
                 .body(resource);
