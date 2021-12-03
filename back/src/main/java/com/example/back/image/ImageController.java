@@ -20,7 +20,8 @@ public class ImageController {
         return ResponseEntity
                 .ok()
                 .contentLength(data.length)
-                .header("Content-type", "application/octec-stream")
+                .header("Content-type", "image/*")
+                //.header("Content-type", "application/octec-stream")
                 .header("Content-disposition", "attachment; filename=\""+fileName+"\"")
                 .body(resource);
     }
