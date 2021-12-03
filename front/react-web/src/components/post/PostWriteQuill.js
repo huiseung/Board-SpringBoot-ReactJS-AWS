@@ -178,6 +178,7 @@ function PostWriteQuill(props){
                     placeholder="내용을 입력해 주세요"
                     value={value}
                     onChange={(content, delta, source, editor)=>{
+                        //setValue(editor.getHTML)
                         setValue(editor.getHTML)
                         setPrevContent(editor.getText)
                     }

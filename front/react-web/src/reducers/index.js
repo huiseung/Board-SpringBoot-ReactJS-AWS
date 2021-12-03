@@ -7,6 +7,7 @@ import postDeleteReducer from './post/postDelete'
 import loginReducer from "./auth/login";
 import signUpReducer from "./auth/signUp";
 import commentPostReducer from "./comment/commentPost";
+import commentPatchReducer from "./comment/commentPatch";
 import commentDeleteReducer from './comment/commentDelelte'
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     loginReducer,
     signUpReducer,
     commentPostReducer,
+    commentPatchReducer,
     commentDeleteReducer,
 })
 

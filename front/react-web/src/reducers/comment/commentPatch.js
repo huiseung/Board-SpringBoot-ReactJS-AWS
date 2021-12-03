@@ -1,31 +1,19 @@
-import { postDelete } from "../../utils/apis/post";
+import { commentPatch } from "../../utils/apis/comment";
 import createAction from "../../utils/reducers/createAction";
 
-const [POST_DELETE, POST_DELETE_SUCCESS, POST_DELETE_FAIL] = createAction("POST_DELETE")
-const POST_DELETE_RESET = "POST_DELETE_RESET"
+const [COMMENT_PATCH, COMMENT_PATCH_SUCCESS, COMMENT_PATCH_FAIL] = createAction("COMMENT_PATCH")
 
-
-
-export function postDeleteResetThunk(){
-    return async function(dispatch){
-        const action = {
-            type: POST_DELETE_RESET
-        }
-        dispatch(action)
-    }
-}
-
-export function postDeleteThunk(postId){
+export function commentPatchThunk({commentId, content}){
     return async function(dispatch, useState){
         const action = {
-            type: POST_DELETE
+            type: COMMENT_PATCH
         }
         dispatch(action)
-        postDelete(postId).then(
+        commentPatch({commentId:commentId, content:content}).then(
             (result)=>{
                 if(result.success === true){
                     const action = {
-                        type: POST_DELETE_SUCCESS,
+                        type: COMMENT_PATCH_SUCCESS,
                         payload:{
                             data: result.response
                         }
@@ -34,10 +22,10 @@ export function postDeleteThunk(postId){
                 }
                 else if(result.success === false){
                     const action = {
-                        type: POST_DELETE_FAIL,
+                        type: COMMENT_PATCH_FAIL,
                         payload:{
                             status: result.error.status,
-                            message: "post 삭제에 실패했습니다"
+                            message: "comment 수정에 실패했습니다"
                         }
                     }
                     dispatch(action)
@@ -54,34 +42,28 @@ const initState = {
 }
 
 
-export default function postDeleteReducer(state=initState, action){
+export default function commentPatchReducer(state=initState, action){
     switch(action.type){
-        case POST_DELETE:
+        case COMMENT_PATCH:
             return{
                 ...state,
                 loading: true,
                 data: null,
                 error: null
             }        
-        case POST_DELETE_SUCCESS:
+        case COMMENT_PATCH_SUCCESS:
             return{
                 ...state,
                 loading: false,
                 data: action.payload.data,
                 error: null
             }
-        case POST_DELETE_FAIL:
+        case COMMENT_PATCH_FAIL:
             return{
                 ...state,
                 loading: false,
                 data: null,
                 error: action.payload
-            }
-        case POST_DELETE_RESET:
-            return{
-                loading: false,
-                data: null,
-                error: null
             }
         default:
             return state

@@ -6,9 +6,11 @@ import { postGetThunk } from '../../reducers/post/postGet'
 import { postPatchThunk } from '../../reducers/post/postPatch'
 import { postDeleteThunk } from '../../reducers/post/postDelete'
 import { commentPostThunk, commentCreateResetThunk } from '../../reducers/comment/commentPost'
+import { commentPatchThunk } from '../../reducers/comment/commentPatch'
+import { commentDeleteThunk } from '../../reducers/comment/commentDelelte'
+
 import { PAGE_URL } from '../../utils/uris'
 import { Fragment } from 'react'
-import { commentDeleteThunk } from '../../reducers/comment/commentDelelte'
 
 
 const StyledContainer = styled.div`
@@ -26,11 +28,18 @@ const StyledHr = styled.hr`
 function PostDetailQuill(props){
     const [commentContent, setCommentContent] = useState("")
     const [isWriteComment, setIsWriteComment] = useState(false)
+    const [isUpdateComment, setIsUpdateComment] = useState(false)
+    const [commentUpdateContent, setCommentUpdateContent] = useState("")
+    const [isUpdatePost, setIsUpdatePost] = useState(false)
+
     const history = useHistory()
     const {loading: loginLoading, data: loginData, error: loginError} = useSelector(state=>state.loginReducer)
     const {loading: postGetLoading, data: postGetData, error: postGetError} = useSelector(state=>state.postGetReducer) 
+    const {loading: postDeleteLoading, data: postDeleteData, error: postDeleteError} = useSelector(state=>state.postDeleteReducer)
     const {loading: commentPostLoading, data: commentPostData, error: commentPostError} = useSelector(state=>state.commentPostReducer) 
+    const {loading: commentPatchLoading, data: commentPatchData, error: commentPatchError} = useSelector(state=>state.commentPatchReducer) 
     const {loading: commentDeleteLoading, data: commentDeleteData, error: commentDeleteError} = useSelector(state=>state.commentDeleteReducer) 
+
 
 
     const dispatch = useDispatch()
@@ -38,23 +47,34 @@ function PostDetailQuill(props){
     useEffect(
         ()=>{
             dispatch(postGetThunk(props.postId))
-            if(commentPostData !== null){
+            if(commentPostData != null){
                 setCommentContent("")
                 dispatch(commentCreateResetThunk())
             }
         }, [commentPostData]
     )
+
     useEffect(
         ()=>{
-            console.log("commentDeleteData",commentDeleteData)
+            if(postDeleteData != null){
+                history.push(PAGE_URL.HOME)
+            }
+        }, [postDeleteData]
+    )
+
+    useEffect(
+        ()=>{
             dispatch(postGetThunk(props.postId))
-        }, [commentDeleteData]
+            setIsUpdateComment(false)
+        }, [commentPatchData, commentDeleteData]
     )
 
     const commentSubmit = (event) => {
         event.preventDefault()
         dispatch(commentPostThunk({postId: postGetData?.id, content: commentContent}))
     }
+
+    console.log("isUpdateComment", isUpdateComment)
 
     return(
         <StyledContainer styled={{
@@ -81,9 +101,7 @@ function PostDetailQuill(props){
                             "justifyContent":"flex-end"
                         }}>
                             <button onClick={()=>{
-                                dispatch(postDeleteThunk(postGetData?.id)).then(
-                                    history.push(PAGE_URL.HOME)
-                                )
+                                dispatch(postDeleteThunk(postGetData?.id))
                             }}
                             style={{
                                 "marginBottom": "1rem",
@@ -228,6 +246,22 @@ function PostDetailQuill(props){
                                                 "cursor": "pointer",
                                                 "width": "4rem" 
                                             }}>삭제</button>
+                                            {!isUpdateComment&&(<button onClick={
+                                                ()=>{
+                                                    console.log("comment", comment.id)
+                                                    setIsUpdateComment(!isUpdateComment)
+                                                    setCommentUpdateContent(comment.content)
+                                                    //dispatch(commentDeleteThunk(comment.id))
+                                                }
+                                            } style={{
+                                                "marginBottom": "1rem",
+                                                "outline": "none",
+                                                "border": "none",
+                                                "height": "2rem",
+                                                "padding":"0px",
+                                                "cursor": "pointer",
+                                                "width": "4rem" 
+                                            }}>수정</button>)}
                                         </div>)
                                         :
                                         (<Fragment>
@@ -236,7 +270,60 @@ function PostDetailQuill(props){
                                     }
                                 </div>
                             </div>
-                            <div>댓글: {comment.content}</div>
+                            {(isUpdateComment)?(
+                            <div>
+                                <form onSubmit={(event)=>{
+                                    event.preventDefault()
+                                    console.log("update",commentUpdateContent)
+                                    dispatch(commentPatchThunk({commentId: comment.id, content: commentUpdateContent}))
+                                }} style = {
+                                    {
+                                        "display": "flex",
+                                        "flexDirection": "column"
+                                    }
+                                }>
+                                    <textarea value={commentUpdateContent}  onChange={(event)=>{setCommentUpdateContent(event.target.value)}}
+                                        style={{
+                                            "height": "50px",
+                                            "border": "1px solid #e9ecef",
+                                        }}/
+                                    >
+                                    <div style={{
+                                        "display": "flex",
+                                        "justifyItems": "center"
+                                    }}>
+                                        <button type="submit" style={
+                                            {
+                                                "marginLeft": "auto",
+                                                "marginRight": "1rem",
+                                                "marginBottom": "1rem",
+                                                "marginTop": "1rem",
+                                                "outline": "none",
+                                                "border": "none",
+                                                "height": "2rem",
+                                                "padding":"0px",
+                                                "cursor": "pointer",
+                                                "width": "4rem"
+                                            }
+                                        }>수정완료</button>
+                                        <button style={{
+                                            "marginTop": "1rem",
+                                            "marginBottom": "1rem",
+                                            "outline": "none",
+                                            "border": "none",
+                                            "height": "2rem",
+                                            "padding":"0px",
+                                            "cursor": "pointer",
+                                            "width": "4rem"
+                                        }} onClick={(event)=>{
+                                            event.preventDefault()
+                                            setIsUpdateComment(!isUpdateComment)}}>수정취소</button>
+                                    </div>
+                                </form>
+                            </div>
+                            ):(
+                                <div>댓글: {comment.content}</div>)
+                            }
                             <div>
                                 <StyledHr/>
                             </div>

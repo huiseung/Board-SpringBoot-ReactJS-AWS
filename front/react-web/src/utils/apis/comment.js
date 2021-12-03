@@ -11,7 +11,19 @@ export function commentPost({postId, content}){
             content: content,
         }
     }
-    //console.log("POST comment", callParam)
+    return apiCall(callParam)
+}
+
+export function commentPatch({commentId, content}){
+    const callParam = {
+        method: "PATCH",
+        url: RESOURCE+"/"+commentId,
+        requestBody: {
+            commentId: commentId,
+            content: content
+        }
+    }
+    console.log("comment patch", callParam)
     return apiCall(callParam)
 }
 
