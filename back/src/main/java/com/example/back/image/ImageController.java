@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class ImageController {
     private final ImageService imageService;
 
-    @GetMapping
+    @GetMapping(produces = "image/*")
     public ResponseEntity<ByteArrayResource> download(@RequestParam("fileName") String fileName){
         byte[] data = imageService.download(fileName);
         ByteArrayResource resource = new ByteArrayResource(data);
