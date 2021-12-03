@@ -43,14 +43,6 @@ function PostList(){
                 (
                     <Fragment>
                         <h2>첫번째 글쓴이가 되어 주세요</h2>
-                        <StyledContainer>
-                            <PostRow title="title2" prevContent="prevContent2" author="author1" createAt="yyyy-MM-dd HH:mm"></PostRow>
-                            <PostRow title="title3" prevContent="prevContent3" author="author1" createAt="yyyy-MM-dd HH:mm"></PostRow>
-                            <PostRow title="title4" prevContent="prevContent4" author="author1" createAt="yyyy-MM-dd HH:mm"></PostRow>
-                            <PostRow title="title4" prevContent="prevContent4" author="author1" createAt="yyyy-MM-dd HH:mm"></PostRow>
-                            <PostRow title="title4" prevContent="prevContent4" author="author1" createAt="yyyy-MM-dd HH:mm"></PostRow>
-                            <PostRow title="title4" prevContent="prevContent4" author="author1" createAt="yyyy-MM-dd HH:mm"></PostRow>
-                        </StyledContainer>
                     </Fragment>
                 ):
                 (

@@ -29,7 +29,6 @@ public class ImageService {
         String storagePath = System.currentTimeMillis()+"_"+file.getOriginalFilename();
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(file.getSize());
-        System.out.println("##########content type"+file.getContentType());
         //objectMetadata.setContentType(file.getContentType());
         objectMetadata.setContentType("image/*");
         try(InputStream inputStream = file.getInputStream()){
@@ -56,7 +55,9 @@ public class ImageService {
 
     @Transactional
     public byte[] download(String fileName){
-        Image fineImage = imageRepository.findByFileName(fileName);
-        return s3Service.download(fineImage.getStoragePath());
+        Image findImage = imageRepository.findByFileName(fileName);
+        System.out.println("findImage "+ findImage.getFileName());
+        System.out.println("findImage "+ findImage.getStoragePath());
+        return s3Service.download(findImage.getStoragePath());
     }
 }
