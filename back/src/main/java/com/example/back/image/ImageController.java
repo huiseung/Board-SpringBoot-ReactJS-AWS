@@ -20,7 +20,7 @@ public class ImageController {
 
     @GetMapping(produces = "image/*")
     public ResponseEntity<ByteArrayResource> download(@RequestParam("fileName") String fileName){
-        byte[] data = imageService.download(URLEncoder.encode(fileName, StandardCharsets.UTF_8));
+        byte[] data = imageService.download(fileName);
         ByteArrayResource resource = new ByteArrayResource(data);
         return ResponseEntity
                 .ok()

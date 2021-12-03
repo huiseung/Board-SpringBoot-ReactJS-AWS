@@ -31,7 +31,10 @@ public class ImageService {
     @Transactional
     public void upload(Post post, MultipartFile file){
         String fileName = URLEncoder.encode(Objects.requireNonNull(file.getOriginalFilename()), StandardCharsets.UTF_8);
-        String storagePath = System.currentTimeMillis()+"_"+fileName;
+        String storagePath =  URLEncoder.encode(System.currentTimeMillis()+"_"+file.getOriginalFilename(), StandardCharsets.UTF_8);
+        System.out.println("upload");
+        System.out.println("fileName"+fileName);
+        System.out.println("storagePath"+storagePath);
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(file.getSize());
         //objectMetadata.setContentType(file.getContentType());
@@ -60,7 +63,10 @@ public class ImageService {
 
     @Transactional
     public byte[] download(String fileName){
-        Image findImage = imageRepository.findByFileName(fileName);
+        String encodeFileName =  URLEncoder.encode(fileName, StandardCharsets.UTF_8);
+        System.out.println("download");
+        System.out.println("fileName: "+encodeFileName);
+        Image findImage = imageRepository.findByFileName(encodeFileName);
         System.out.println("findImage "+ findImage.getFileName());
         System.out.println("findImage "+ findImage.getStoragePath());
         return s3Service.download(findImage.getStoragePath());
