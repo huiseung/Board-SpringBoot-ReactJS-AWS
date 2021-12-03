@@ -28,7 +28,6 @@ public class AmazonS3Config {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
 
-
     @Bean
     @Primary
     public BasicAWSCredentials awsCredentials(){
@@ -41,21 +40,21 @@ public class AmazonS3Config {
                 .withRegion(region)
                 .withCredentials(new AWSStaticCredentialsProvider(awsCredentials()))
                 .build();
-        BucketCrossOriginConfiguration corsConfig = client.getBucketCrossOriginConfiguration(bucket);
-        List<CORSRule> rules = corsConfig == null ? new ArrayList<>(): corsConfig.getRules();
-        List<CORSRule.AllowedMethods> allowedMethodsList = new ArrayList<>();
-        allowedMethodsList.add(CORSRule.AllowedMethods.GET);
-        allowedMethodsList.add(CORSRule.AllowedMethods.POST);
-        allowedMethodsList.add(CORSRule.AllowedMethods.DELETE);
-        rules.add(new CORSRule()
-                .withAllowedOrigins(Collections.singletonList("*"))
-                .withAllowedHeaders(Collections.singletonList("*"))
-                .withAllowedMethods(allowedMethodsList)
-        );
-        client.setBucketCrossOriginConfiguration(bucket, new BucketCrossOriginConfiguration().withRules(rules));
-                //.withExposedHeaders(Collections.singletonList("Access-Control-Allow-Origin"))
-                //.withAllowedHeaders(Collections.singletonList("Authorization")));
+//        BucketCrossOriginConfiguration corsConfig = client.getBucketCrossOriginConfiguration(bucket);
+//        List<CORSRule> rules = corsConfig == null ? new ArrayList<>(): corsConfig.getRules();
+//        Collections.singletonList();
+//        List<CORSRule.AllowedMethods> allowedMethodsList = new ArrayList<>();
+//        allowedMethodsList.add(CORSRule.AllowedMethods.GET);
+//        allowedMethodsList.add(CORSRule.AllowedMethods.POST);
+//        allowedMethodsList.add(CORSRule.AllowedMethods.DELETE);
+//        rules.add(new CORSRule()
+//                .withAllowedOrigins(Collections.singletonList("*"))
+//                .withAllowedHeaders(Collections.singletonList("*"))
+//                .withAllowedMethods(allowedMethodsList)
+//        );
+//        client.setBucketCrossOriginConfiguration(bucket, new BucketCrossOriginConfiguration().withRules(rules));
+//                //.withExposedHeaders(Collections.singletonList("Access-Control-Allow-Origin"))
+//                //.withAllowedHeaders(Collections.singletonList("Authorization")));
         return client;
-
     }
 }
