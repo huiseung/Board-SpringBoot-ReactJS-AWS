@@ -27,7 +27,7 @@
 # 실행 화면 
 - 사이트주소: [board.huiseung.com](https://board.huiseung.com)
 
-![실행 화면](./devlog/images/실행화면.gif)
+![실행 화면](./devlog/images/포트폴리오_실행화면.gif)
 
 # Version Control
 ![gitflow](./devlog/images/gitflow.PNG)
