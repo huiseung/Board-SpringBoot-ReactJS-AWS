@@ -24,10 +24,7 @@
 [개발 기록](#devlog)
 
 
-# 실행 화면 
-- 사이트주소: [board.huiseung.com](https://board.huiseung.com)
-  - 현재 서버 비용 문제로 서버를 닫아 접속이 불가능 합니다!
-
+# 실행 화면
 
 ![실행 화면](./devlog/images/실행화면.gif)
 
